@@ -15,7 +15,7 @@
             --global-speed-scale: 1;
             --text-main: #ffffff;
             --text-sub: #aaaaaa;
-            --nav-bg: rgba(0, 0, 0, 0.6);
+            --nav-bg: rgba(0, 0, 0, 0.7);
             --card-bg: rgba(255, 255, 255, 0.03);
             --sky-gradient: radial-gradient(circle at center top, #1a1a2e 0%, #0f0f13 100%);
             --celestial-color: #f1f1f1;
@@ -33,7 +33,7 @@
             --mountain-alt: #78909c;
             --text-main: #263238;
             --text-sub: #546e7a;
-            --nav-bg: rgba(255, 255, 255, 0.85);
+            --nav-bg: rgba(255, 255, 255, 0.9);
             --card-bg: rgba(255, 255, 255, 0.6);
             --sky-gradient: linear-gradient(to bottom, #4fc3f7 0%, #e1f5fe 100%); 
             --celestial-color: #ffeb3b;
@@ -80,76 +80,92 @@
         }
 
         @keyframes twinkle {
-            0%, 100% { transform: scale(1); opacity: 0.3; box-shadow: 0 0 0px white; }
-            50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8); }
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.5); }
         }
 
-        /* CELESTIAL TOGGLE */
+        /* CELESTIAL TOGGLE - Responsive position */
         .celestial-toggle {
             position: fixed;
-            top: 40px;
-            right: 40px;
-            width: 80px;
-            height: 80px;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
             background: var(--celestial-color);
             border-radius: 50%;
             box-shadow: var(--celestial-shadow);
-            z-index: 1001;
+            z-index: 1100;
             cursor: pointer;
             transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* NAVIGATION */
+        @media (min-width: 768px) {
+            .celestial-toggle {
+                top: 40px;
+                right: 40px;
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* NAVIGATION - Optimized for Touch */
         nav {
             position: fixed;
-            top: 20px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
-            gap: 25px;
+            gap: 15px;
             background: var(--nav-bg);
-            padding: 12px 35px;
+            padding: 10px 20px;
             border-radius: 50px;
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             align-items: center;
+            width: fit-content;
+            max-width: 90vw;
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                top: 20px;
+                bottom: auto;
+                gap: 25px;
+                padding: 12px 35px;
+            }
         }
 
         nav a {
             color: var(--text-main);
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
             font-weight: 800;
             transition: 0.3s;
             cursor: pointer;
             opacity: 0.6;
+            white-space: nowrap;
         }
 
         nav a.active, nav a:hover { opacity: 1; color: var(--primary-color); }
 
         /* PAGE MANAGEMENT */
-        .page-container {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-        }
-
         .page {
-            display: none; /* Default state: hidden */
+            display: none;
             width: 100%;
             min-height: 100vh;
             opacity: 0;
-            transform: scale(0.98) translateY(10px);
-            transition: opacity var(--transition-speed) ease, transform var(--transition-speed) cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: scale(0.98);
+            transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+            box-sizing: border-box;
         }
 
         .page.active {
-            display: block; /* Shown only when active */
+            display: block;
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: scale(1);
         }
 
         /* --- HOME HERO --- */
@@ -167,13 +183,14 @@
             text-align: center;
             margin-top: 15vh;
             z-index: 100;
+            padding: 0 20px;
         }
 
         .header h1 {
-            font-size: 4.5rem;
+            font-size: 2.5rem;
             margin: 0;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             background: linear-gradient(to bottom, var(--text-main), #999);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -181,12 +198,17 @@
         }
 
         .header h2 {
-            font-size: 1.8rem;
+            font-size: 1.2rem;
             color: var(--primary-color);
             margin: 0;
             text-transform: uppercase;
-            letter-spacing: 10px;
+            letter-spacing: 6px;
             font-weight: 900;
+        }
+
+        @media (min-width: 768px) {
+            .header h1 { font-size: 4.5rem; letter-spacing: 4px; }
+            .header h2 { font-size: 1.8rem; letter-spacing: 10px; }
         }
 
         /* --- SCENE LAYERS --- */
@@ -194,12 +216,16 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 600px;
+            height: 400px;
             display: flex;
             align-items: flex-end;
             justify-content: center;
             overflow: hidden;
             pointer-events: none;
+        }
+
+        @media (min-width: 768px) {
+            .scene { height: 600px; }
         }
 
         @keyframes scrollLandscape {
@@ -210,7 +236,7 @@
         .layer { position: absolute; width: 200%; display: flex; animation: scrollLandscape linear infinite; transition: filter 0.5s ease; }
         
         .clouds-container { top: 0; z-index: 1; animation-duration: calc(80s / var(--global-speed-scale)); opacity: var(--cloud-opacity); }
-        .mountains-back { bottom: 80px; z-index: 2; animation-duration: calc(60s / var(--global-speed-scale)); opacity: 0.6; }
+        .mountains-back { bottom: 80px; z-index: 2; animation-duration: calc(60s / var(--global-speed-scale)); opacity: 0.4; }
         .mountains-front { bottom: 60px; z-index: 3; animation-duration: calc(40s / var(--global-speed-scale)); }
         .trees-container { bottom: 60px; z-index: 4; animation-duration: calc(14s / var(--global-speed-scale)); }
         
@@ -220,38 +246,53 @@
         
         .mountain { 
             width: 0; height: 0; 
-            border-left: 180px solid transparent; 
-            border-right: 180px solid transparent; 
-            border-bottom: 240px solid var(--mountain-color); 
-            margin-right: -100px; 
+            border-left: 100px solid transparent; 
+            border-right: 100px solid transparent; 
+            border-bottom: 140px solid var(--mountain-color); 
+            margin-right: -60px; 
             transition: border-bottom-color 1s ease; 
         }
-        .mountain.small { border-left-width: 120px; border-right-width: 120px; border-bottom-width: 160px; }
+        @media (min-width: 768px) {
+            .mountain { border-left-width: 180px; border-right-width: 180px; border-bottom-width: 240px; margin-right: -100px; }
+        }
+        .mountain.small { border-left-width: 60px; border-right-width: 60px; border-bottom-width: 80px; }
+        @media (min-width: 768px) {
+            .mountain.small { border-left-width: 120px; border-right-width: 120px; border-bottom-width: 160px; }
+        }
         .mountain.alt { border-bottom-color: var(--mountain-alt); }
 
-        .tree { position: relative; margin-right: 40px; }
+        .tree { position: relative; margin-right: 20px; }
         .tree-top { 
             width: 0; height: 0; 
-            border-left: 30px solid transparent; 
-            border-right: 30px solid transparent; 
-            border-bottom: 80px solid var(--tree-color); 
-            transition: border-bottom-color 1s ease; 
+            border-left: 15px solid transparent; 
+            border-right: 15px solid transparent; 
+            border-bottom: 40px solid var(--tree-color); 
         }
-        .tree.large .tree-top { border-left-width: 45px; border-right-width: 45px; border-bottom-width: 110px; }
-        .tree-trunk { width: 10px; height: 15px; background: #000; margin: 0 auto; opacity: 0.3; }
+        @media (min-width: 768px) {
+            .tree { margin-right: 40px; }
+            .tree-top { border-left-width: 30px; border-right-width: 30px; border-bottom-width: 80px; }
+        }
+        .tree.large .tree-top { border-left-width: 25px; border-right-width: 25px; border-bottom-width: 60px; }
+        @media (min-width: 768px) {
+            .tree.large .tree-top { border-left-width: 45px; border-right-width: 45px; border-bottom-width: 110px; }
+        }
+        .tree-trunk { width: 6px; height: 10px; background: #000; margin: 0 auto; opacity: 0.2; }
 
         .road-container { position: absolute; bottom: 50px; width: 100%; height: 4px; background: rgba(0,0,0,0.1); z-index: 10; }
         .road-strips { position: absolute; width: 200%; height: 100%; display: flex; animation: scrollLandscape calc(0.8s / var(--global-speed-scale)) linear infinite; }
         .strip { width: 40px; height: 4px; background: var(--primary-color); box-shadow: 0 0 10px var(--primary-color); margin: 0 50px; }
 
-        /* TRUCK */
+        /* TRUCK - Scaled for Mobile */
         .truck-wrapper { 
             position: absolute; 
             bottom: 54px; 
             z-index: 20; 
             left: 50%; 
-            transform: translateX(-50%); 
+            transform: translateX(-50%) scale(0.7); 
             width: 200px;
+        }
+        @media (min-width: 768px) {
+            .truck-wrapper { transform: translateX(-50%) scale(1); }
         }
         .truck-suspension { position: relative; animation: bump calc(1.2s / (var(--global-speed-scale) + 0.1)) ease-in-out infinite; }
         .truck-chassis { width: 190px; height: 10px; background: #222; border-radius: 4px; position: absolute; bottom: 0; }
@@ -266,40 +307,57 @@
 
         /* ABOUT SECTION */
         .about-section { 
-            padding: 120px 20px; 
+            padding: 80px 20px 120px 20px; 
             background: var(--bg-color); 
             transition: background 1s ease; 
             position: relative; 
             z-index: 200; 
         }
         .about-container { max-width: 800px; margin: 0 auto; text-align: center; }
-        .about-container h2 { font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 5px; color: var(--primary-color); }
-        .about-container p { font-size: 1.1rem; line-height: 1.8; color: var(--text-sub); margin-bottom: 40px; }
-        .footer { padding: 60px 0; opacity: 0.3; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; text-align: center; }
+        .about-container h2 { font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 3px; color: var(--primary-color); }
+        .about-container p { font-size: 1rem; line-height: 1.6; color: var(--text-sub); margin-bottom: 40px; }
+        
+        .stats-grid { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+        .stat-item { background: var(--card-bg); padding: 15px; border-radius: 15px; border: 1px solid var(--primary-color); width: 100px; flex-shrink: 0; }
+
+        @media (min-width: 768px) {
+            .about-section { padding: 120px 20px; }
+            .about-container h2 { font-size: 2.5rem; letter-spacing: 5px; }
+            .about-container p { font-size: 1.1rem; line-height: 1.8; }
+            .stat-item { padding: 20px; width: 120px; }
+            .stats-grid { gap: 20px; }
+        }
+
+        .footer { padding: 40px 0; opacity: 0.3; font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; text-align: center; width: 100%; }
 
         /* PARTNERSHIP PAGE & SLIDER */
-        .partnership-wrapper { padding: 150px 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; box-sizing: border-box; width: 100%; overflow: hidden; }
+        .partnership-wrapper { padding: 60px 20px 140px 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; width: 100%; box-sizing: border-box; overflow-x: hidden; }
         
+        @media (min-width: 768px) {
+            .partnership-wrapper { padding: 120px 20px; }
+        }
+
         .slider-viewport { 
             width: 100%; 
             max-width: 1100px; 
             overflow: hidden; 
             position: relative; 
             padding: 20px 0;
+            margin: 0 auto;
         }
 
         .partnership-grid { 
             display: flex; 
-            gap: 30px; 
+            gap: 20px; 
             transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); 
-            padding: 0 40px;
+            width: 100%;
         }
 
         .card { 
-            flex: 0 0 calc(33.333% - 20px); 
+            flex: 0 0 100%; 
             background: var(--card-bg); 
-            height: 380px; 
-            padding: 30px; 
+            min-height: 320px; 
+            padding: 25px; 
             border-radius: 20px; 
             border: 1px solid rgba(0, 168, 255, 0.1); 
             text-align: center; 
@@ -314,16 +372,25 @@
             box-sizing: border-box;
         }
 
-        .card:hover { transform: translateY(-10px); border-color: var(--primary-color); background: rgba(0, 168, 255, 0.05); }
-        .card-icon { width: 100px; height: 100px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 20px; }
-        .card-icon img { width: 100%; height: 100%; object-fit: cover; }
+        @media (min-width: 600px) {
+            .card { flex: 0 0 calc(50% - 10px); }
+            .partnership-grid { gap: 20px; }
+        }
 
-        @media (max-width: 900px) {
-            .card { flex: 0 0 calc(50% - 15px); }
+        @media (min-width: 960px) {
+            .card { flex: 0 0 calc(33.333% - 20px); }
+            .partnership-grid { gap: 30px; }
         }
-        @media (max-width: 600px) {
-            .card { flex: 0 0 100%; }
+
+        .card:hover { transform: translateY(-10px); border-color: var(--primary-color); background: rgba(0, 168, 255, 0.05); }
+        .card-icon { width: 80px; height: 80px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 20px; }
+        .card-icon img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .partnership-title { font-size: 2.5rem; margin: 0; text-align: center; }
+        @media (min-width: 768px) {
+            .partnership-title { font-size: 4rem; }
         }
+
     </style>
 </head>
 <body>
@@ -339,29 +406,27 @@
 
     <div class="page-container">
         <!-- HOME PAGE -->
-        <div id="home" class="page active" style="display:block; opacity:1;">
+        <div id="home" class="page active">
             <div class="home-hero">
                 <div class="header">
                     <h1>NorthStar</h1>
                     <h2>Express</h2>
-                    <div style="margin-top:10px; opacity:0.7; letter-spacing:2px; font-size:0.9rem">EST. 2026</div>
+                    <div style="margin-top:10px; opacity:0.7; letter-spacing:2px; font-size:0.75rem">EST. 2026</div>
                 </div>
 
                 <div class="scene">
                     <div class="layer clouds-container">
                         <div class="group">
-                            <div class="cloud" style="top:40px; left:5%; width:140px; height:45px;"></div>
-                            <div class="cloud" style="top:110px; left:25%; width:180px; height:60px;"></div>
-                            <div class="cloud" style="top:70px; left:45%; width:120px; height:40px;"></div>
-                            <div class="cloud" style="top:130px; left:60%; width:160px; height:50px;"></div>
-                            <div class="cloud" style="top:50px; left:80%; width:130px; height:45px;"></div>
+                            <div class="cloud" style="top:40px; left:5%; width:100px; height:30px;"></div>
+                            <div class="cloud" style="top:110px; left:25%; width:120px; height:40px;"></div>
+                            <div class="cloud" style="top:70px; left:45%; width:80px; height:30px;"></div>
+                            <div class="cloud" style="top:50px; left:80%; width:90px; height:35px;"></div>
                         </div>
                         <div class="group">
-                            <div class="cloud" style="top:40px; left:5%; width:140px; height:45px;"></div>
-                            <div class="cloud" style="top:110px; left:25%; width:180px; height:60px;"></div>
-                            <div class="cloud" style="top:70px; left:45%; width:120px; height:40px;"></div>
-                            <div class="cloud" style="top:130px; left:60%; width:160px; height:50px;"></div>
-                            <div class="cloud" style="top:50px; left:80%; width:130px; height:45px;"></div>
+                            <div class="cloud" style="top:40px; left:5%; width:100px; height:30px;"></div>
+                            <div class="cloud" style="top:110px; left:25%; width:120px; height:40px;"></div>
+                            <div class="cloud" style="top:70px; left:45%; width:80px; height:30px;"></div>
+                            <div class="cloud" style="top:50px; left:80%; width:90px; height:35px;"></div>
                         </div>
                     </div>
 
@@ -369,48 +434,36 @@
                         <div class="group">
                             <div class="mountain alt small" style="margin-left: 5%"></div>
                             <div class="mountain alt small" style="margin-left: 20%"></div>
-                            <div class="mountain alt small" style="margin-left: 45%"></div>
-                            <div class="mountain alt small" style="margin-left: 70%"></div>
+                            <div class="mountain alt small" style="margin-left: 50%"></div>
                         </div>
                         <div class="group">
                             <div class="mountain alt small" style="margin-left: 5%"></div>
                             <div class="mountain alt small" style="margin-left: 20%"></div>
-                            <div class="mountain alt small" style="margin-left: 45%"></div>
-                            <div class="mountain alt small" style="margin-left: 70%"></div>
+                            <div class="mountain alt small" style="margin-left: 50%"></div>
                         </div>
                     </div>
 
                     <div class="layer mountains-front">
                         <div class="group">
-                            <div class="mountain" style="margin-left: -40px"></div>
-                            <div class="mountain" style="margin-left: 35%; border-bottom-width: 280px;"></div>
-                            <div class="mountain" style="margin-left: 15%; border-bottom-width: 200px;"></div>
+                            <div class="mountain" style="margin-left: -20px"></div>
+                            <div class="mountain" style="margin-left: 35%;"></div>
                         </div>
                         <div class="group">
-                            <div class="mountain" style="margin-left: -40px"></div>
-                            <div class="mountain" style="margin-left: 35%; border-bottom-width: 280px;"></div>
-                            <div class="mountain" style="margin-left: 15%; border-bottom-width: 200px;"></div>
+                            <div class="mountain" style="margin-left: -20px"></div>
+                            <div class="mountain" style="margin-left: 35%;"></div>
                         </div>
                     </div>
 
                     <div class="layer trees-container">
                         <div class="group">
                             <div class="tree large" style="margin-left: 5%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree" style="margin-left: 2%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree large" style="margin-left: 8%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree" style="margin-left: 4%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree large" style="margin-left: 12%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree" style="margin-left: 5%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree large" style="margin-left: 10%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree" style="margin-left: 10%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree large" style="margin-left: 15%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
                         </div>
                         <div class="group">
                             <div class="tree large" style="margin-left: 5%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree" style="margin-left: 2%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree large" style="margin-left: 8%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree" style="margin-left: 4%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree large" style="margin-left: 12%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree" style="margin-left: 5%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree large" style="margin-left: 10%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree" style="margin-left: 10%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree large" style="margin-left: 15%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
                         </div>
                     </div>
 
@@ -437,18 +490,18 @@
             <section class="about-section">
                 <div class="about-container">
                     <h2>The Northern Standard</h2>
-                    <p>Driving through every weather, every road, and every night. NorthStar Express is a premier Virtual Trucking Company (VTC) dedicated to professionalism, community, and the love of the open road. Whether you're hauling heavy cargo across Europe or navigating the highways of America, we provide a home for truckers who value excellence.</p>
-                    <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 40px;">
-                        <div style="background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--primary-color); width: 120px;">
+                    <p>Driving through every weather, every road, and every night. NorthStar Express is a premier Virtual Trucking Company (VTC) dedicated to professionalism, community, and the love of the open road.</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
                             <h3 style="margin:0; color:var(--primary-color)">24/7</h3>
                             <small>Support</small>
                         </div>
-                        <div style="background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--primary-color); width: 120px;">
-                            <h3 style="margin:0; color:var(--primary-color)">10</h3>
-                            <small>Job Completed</small>
+                        <div class="stat-item">
+                            <h3 style="margin:0; color:var(--primary-color)">Global</h3>
+                            <small>Logistics</small>
                         </div>
-                        <div style="background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--primary-color); width: 120px;">
-                            <h3 style="margin:0; color:var(--primary-color)">2</h3>
+                        <div class="stat-item">
+                            <h3 style="margin:0; color:var(--primary-color)">Elite</h3>
                             <small>Drivers</small>
                         </div>
                     </div>
@@ -460,8 +513,8 @@
         <!-- PARTNERSHIP PAGE -->
         <div id="partnership" class="page">
             <div class="partnership-wrapper">
-                <h1 style="font-size: 4rem; margin:0">PARTNERS</h1>
-                <p style="color: var(--primary-color); letter-spacing: 5px; font-weight:900; margin-bottom: 50px;">CO-PILOTS IN SUCCESS</p>
+                <h1 class="partnership-title">PARTNERS</h1>
+                <p style="color: var(--primary-color); letter-spacing: 3px; font-weight:900; margin-bottom: 30px; text-align:center; font-size: 0.8rem;">CO-PILOTS IN SUCCESS</p>
                 
                 <div class="slider-viewport">
                     <div class="partnership-grid" id="partnership-grid">
@@ -472,16 +525,15 @@
                             <h3>FluxLine Cargo</h3>
                             <p>High-speed logistics and professional dispatching services.</p>
                         </a>
-                        <!-- Template card to show more than 3 for testing the auto-scroll -->
                         <div class="card">
-                            <div class="card-icon" style="font-size: 2rem;">★</div>
+                            <div class="card-icon" style="font-size: 1.5rem; color: white;">★</div>
                             <h3>Future Partner</h3>
-                            <p>Contact us via Discord to see your VTC here and join the network.</p>
+                            <p>Join our growing network of professional VTCs.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="footer" style="margin-top:auto;">© 2026 NORTHSTAR EXPRESS • LOGISTICS REDEFINED</div>
+                <div class="footer" style="margin-top:auto;">© 2026 NORTHSTAR EXPRESS</div>
             </div>
         </div>
     </div>
@@ -495,20 +547,23 @@
 
         // Stars setup
         function createStars() {
-            for (let i = 0; i < 150; i++) {
+            const count = window.innerWidth < 768 ? 60 : 150;
+            starsContainer.innerHTML = '';
+            for (let i = 0; i < count; i++) {
                 const star = document.createElement('div');
-                const isTwinkler = Math.random() > 0.7;
+                const isTwinkler = Math.random() > 0.8;
                 star.className = 'star' + (isTwinkler ? ' twinkle' : '');
                 const size = Math.random() * 2 + 1;
                 star.style.width = size + 'px';
                 star.style.height = size + 'px';
-                star.style.top = Math.random() * 70 + '%';
+                star.style.top = Math.random() * 80 + '%';
                 star.style.left = Math.random() * 100 + '%';
                 if (isTwinkler) star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
                 starsContainer.appendChild(star);
             }
         }
         createStars();
+        window.addEventListener('resize', createStars);
 
         modeToggle.addEventListener('click', () => {
             body.classList.toggle('light-mode');
@@ -519,19 +574,24 @@
         let sliderInterval = null;
 
         function startPartnershipSlider() {
+            stopPartnershipSlider();
             const cards = partnershipGrid.querySelectorAll('.card');
-            if (cards.length <= 3) return; // Only scroll if more than 3
-
+            
             sliderInterval = setInterval(() => {
+                const visibleCount = window.innerWidth >= 960 ? 3 : (window.innerWidth >= 600 ? 2 : 1);
+                if (cards.length <= visibleCount) return;
+
                 currentSlide++;
-                const cardWidth = cards[0].offsetWidth + 30; // Card + Gap
-                const maxSlides = cards.length - 3;
+                const cardWidth = cards[0].offsetWidth;
+                const gap = parseInt(window.getComputedStyle(partnershipGrid).gap);
+                const step = cardWidth + gap;
+                const maxSlides = cards.length - visibleCount;
                 
                 if (currentSlide > maxSlides) {
                     currentSlide = 0;
                 }
 
-                partnershipGrid.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+                partnershipGrid.style.transform = `translateX(-${currentSlide * step}px)`;
             }, 5000);
         }
 
@@ -539,9 +599,9 @@
             if (sliderInterval) {
                 clearInterval(sliderInterval);
                 sliderInterval = null;
-                currentSlide = 0;
-                partnershipGrid.style.transform = 'translateX(0)';
             }
+            currentSlide = 0;
+            partnershipGrid.style.transform = 'translateX(0)';
         }
 
         // Navigation logic
@@ -549,56 +609,59 @@
         function navigateTo(pageId) {
             if (isNavigating) return;
             const currentActive = document.querySelector('.page.active');
-            if (currentActive.id === pageId) return;
+            if (currentActive && currentActive.id === pageId) return;
 
             isNavigating = true;
             
-            // 1. Acceleration Effect
-            root.style.setProperty('--global-speed-scale', '6');
-            document.querySelectorAll('.layer').forEach(l => l.style.filter = 'blur(3px)');
+            // Speed up world during transition
+            root.style.setProperty('--global-speed-scale', '5');
+            document.querySelectorAll('.layer').forEach(l => l.style.filter = 'blur(2px)');
             
-            // 2. Start Fading out Current
-            currentActive.style.opacity = '0';
-            currentActive.style.transform = 'scale(1.05) translateY(-30px)';
+            if (currentActive) {
+                currentActive.style.opacity = '0';
+                currentActive.style.transform = 'scale(1.05)';
+            }
 
-            // Update Nav UI
             document.querySelectorAll('nav a').forEach(a => {
                 a.classList.toggle('active', a.id === 'nav-' + pageId);
             });
 
-            // 3. Middle of transition: Swap the visibility
             setTimeout(() => {
-                currentActive.classList.remove('active');
-                currentActive.style.display = 'none';
+                if (currentActive) {
+                    currentActive.classList.remove('active');
+                    currentActive.style.display = 'none';
+                }
                 
                 const nextPage = document.getElementById(pageId);
                 nextPage.style.display = 'block';
-                
                 void nextPage.offsetWidth; 
 
                 nextPage.classList.add('active');
                 nextPage.style.opacity = '1';
-                nextPage.style.transform = 'scale(1) translateY(0)';
+                nextPage.style.transform = 'scale(1)';
                 
                 window.scrollTo({ top: 0, behavior: 'instant' });
 
-                // Start or Stop the partnership slider based on page
                 if (pageId === 'partnership') {
                     startPartnershipSlider();
                 } else {
                     stopPartnershipSlider();
                 }
 
-                // 4. Decelerate back to cruising speed
                 setTimeout(() => {
-                    const finalSpeed = pageId === 'partnership' ? '2.5' : '1';
-                    root.style.setProperty('--global-speed-scale', finalSpeed);
+                    root.style.setProperty('--global-speed-scale', pageId === 'partnership' ? '2' : '1');
                     document.querySelectorAll('.layer').forEach(l => l.style.filter = 'none');
                     isNavigating = false;
                 }, 400);
 
-            }, 600);
+            }, 400);
         }
+
+        // Handle initial page load state
+        window.onload = () => {
+            document.getElementById('home').style.display = 'block';
+            document.getElementById('home').style.opacity = '1';
+        };
     </script>
 </body>
 </html>
