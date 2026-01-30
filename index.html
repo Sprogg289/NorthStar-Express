@@ -8,35 +8,95 @@
         :root {
             --primary-color: #00a8ff;
             --bg-color: #0f0f13;
-            --tree-color: #2e4444; 
-            --rock-color: #4a4a4f;
-            --mountain-color: #1a1a20;
+            --tree-color: #1a2e2e; 
+            --rock-color: #333338;
+            --mountain-color: #14141a;
+            --mountain-alt: #0a0a0f;
             --global-speed-scale: 1;
+            --text-main: #ffffff;
+            --text-sub: #aaaaaa;
+            --nav-bg: rgba(0, 0, 0, 0.6);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --sky-gradient: radial-gradient(circle at center top, #1a1a2e 0%, #0f0f13 100%);
+            --celestial-color: #f1f1f1;
+            --celestial-shadow: 0 0 60px 20px rgba(255, 255, 255, 0.2);
+            --star-opacity: 1;
+            --cloud-opacity: 0.2;
+            --transition-speed: 0.8s;
+        }
+
+        body.light-mode {
+            --bg-color: #f0f9ff;
+            --tree-color: #2d5a27; 
+            --rock-color: #aeb9be;
+            --mountain-color: #90a4ae; 
+            --mountain-alt: #78909c;
+            --text-main: #263238;
+            --text-sub: #546e7a;
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --sky-gradient: linear-gradient(to bottom, #4fc3f7 0%, #e1f5fe 100%); 
+            --celestial-color: #ffeb3b;
+            --celestial-shadow: 0 0 80px 30px rgba(255, 235, 59, 0.4);
+            --star-opacity: 0;
+            --cloud-opacity: 0.8;
         }
 
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
-            background: radial-gradient(circle at center top, #242435 0%, #0f0f13 100%);
-            color: white;
+            background: var(--sky-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
+            transition: background 1s ease, color 0.5s ease;
         }
 
-        /* MOON */
-        .moon {
+        /* TWINKLING STARS */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: var(--star-opacity);
+            transition: opacity 1.2s ease;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .star.twinkle {
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { transform: scale(1); opacity: 0.3; box-shadow: 0 0 0px white; }
+            50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8); }
+        }
+
+        /* CELESTIAL TOGGLE */
+        .celestial-toggle {
             position: fixed;
             top: 40px;
             right: 40px;
-            width: 100px;
-            height: 100px;
-            background: #fff;
+            width: 80px;
+            height: 80px;
+            background: var(--celestial-color);
             border-radius: 50%;
-            box-shadow: 0 0 60px 20px rgba(255, 255, 255, 0.3),
-                        0 0 120px 40px rgba(255, 255, 255, 0.1);
-            z-index: 0;
+            box-shadow: var(--celestial-shadow);
+            z-index: 1001;
+            cursor: pointer;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* NAVIGATION */
@@ -47,16 +107,17 @@
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
-            gap: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 12px 30px;
+            gap: 25px;
+            background: var(--nav-bg);
+            padding: 12px 35px;
             border-radius: 50px;
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
         }
 
         nav a {
-            color: white;
+            color: var(--text-main);
             text-decoration: none;
             text-transform: uppercase;
             font-size: 0.75rem;
@@ -67,28 +128,31 @@
             opacity: 0.6;
         }
 
-        nav a.active, nav a:hover {
-            opacity: 1;
-            color: var(--primary-color);
-        }
+        nav a.active, nav a:hover { opacity: 1; color: var(--primary-color); }
 
         /* PAGE MANAGEMENT */
-        .page {
-            display: none;
-            height: 100vh;
+        .page-container {
+            position: relative;
             width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            overflow-y: auto;
-            scroll-behavior: smooth;
+            min-height: 100vh;
+        }
+
+        .page {
+            display: none; /* Default state: hidden */
+            width: 100%;
+            min-height: 100vh;
+            opacity: 0;
+            transform: scale(0.98) translateY(10px);
+            transition: opacity var(--transition-speed) ease, transform var(--transition-speed) cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .page.active {
-            display: block;
+            display: block; /* Shown only when active */
+            opacity: 1;
+            transform: scale(1) translateY(0);
         }
 
-        /* --- HOME PAGE STYLES --- */
+        /* --- HOME HERO --- */
         .home-hero {
             height: 100vh;
             width: 100%;
@@ -97,14 +161,12 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            flex-shrink: 0;
         }
 
         .header {
             text-align: center;
-            margin-top: 12vh;
+            margin-top: 15vh;
             z-index: 100;
-            transition: opacity 0.5s ease;
         }
 
         .header h1 {
@@ -112,7 +174,7 @@
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 4px;
-            background: linear-gradient(to bottom, #fff, #999);
+            background: linear-gradient(to bottom, var(--text-main), #999);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 900;
@@ -125,65 +187,6 @@
             text-transform: uppercase;
             letter-spacing: 10px;
             font-weight: 900;
-        }
-
-        /* ABOUT SECTION */
-        .about-section {
-            padding: 100px 20px;
-            background: rgba(15, 15, 19, 0.95);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            z-index: 200;
-        }
-
-        .about-container {
-            max-width: 900px;
-            text-align: center;
-        }
-
-        .about-section h2 {
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 30px;
-            color: white;
-        }
-
-        .about-text {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #bbb;
-            margin-bottom: 40px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(0, 168, 255, 0.2);
-        }
-
-        .stat-card h4 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin: 0;
-        }
-
-        .stat-card p {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            margin: 10px 0 0;
-            opacity: 0.7;
         }
 
         /* --- SCENE LAYERS --- */
@@ -204,379 +207,398 @@
             100% { transform: translateX(-50%); }
         }
 
-        .layer { position: absolute; width: 200%; display: flex; animation: scrollLandscape linear infinite; }
-        .clouds-container { top: 0; z-index: 1; animation-duration: calc(60s / var(--global-speed-scale)); }
-        .mountains-container { bottom: 60px; z-index: 2; animation-duration: calc(40s / var(--global-speed-scale)); }
-        .trees-container { bottom: 60px; z-index: 3; animation-duration: calc(12s / var(--global-speed-scale)); }
-        .rocks-container { bottom: 40px; z-index: 4; animation-duration: calc(5s / var(--global-speed-scale)); }
+        .layer { position: absolute; width: 200%; display: flex; animation: scrollLandscape linear infinite; transition: filter 0.5s ease; }
+        
+        .clouds-container { top: 0; z-index: 1; animation-duration: calc(80s / var(--global-speed-scale)); opacity: var(--cloud-opacity); }
+        .mountains-back { bottom: 80px; z-index: 2; animation-duration: calc(60s / var(--global-speed-scale)); opacity: 0.6; }
+        .mountains-front { bottom: 60px; z-index: 3; animation-duration: calc(40s / var(--global-speed-scale)); }
+        .trees-container { bottom: 60px; z-index: 4; animation-duration: calc(14s / var(--global-speed-scale)); }
         
         .group { width: 50%; display: flex; align-items: flex-end; position: relative; }
-        .cloud { position: absolute; background: rgba(255, 255, 255, 0.1); border-radius: 50px; width: 120px; height: 45px; }
-        .mountain { width: 0; height: 0; border-left: 150px solid transparent; border-right: 150px solid transparent; border-bottom: 200px solid var(--mountain-color); margin-right: -80px; }
-        .tree-top { width: 0; height: 0; border-left: 35px solid transparent; border-right: 35px solid transparent; border-bottom: 90px solid var(--tree-color); }
-        .tree-trunk { width: 12px; height: 18px; background: #111; margin: 0 auto; }
-        .rock { width: 35px; height: 18px; background: var(--rock-color); border-radius: 15px 15px 0 0; position: absolute; bottom: 0; }
+        
+        .cloud { position: absolute; background: white; border-radius: 50px; filter: blur(2px); }
+        
+        .mountain { 
+            width: 0; height: 0; 
+            border-left: 180px solid transparent; 
+            border-right: 180px solid transparent; 
+            border-bottom: 240px solid var(--mountain-color); 
+            margin-right: -100px; 
+            transition: border-bottom-color 1s ease; 
+        }
+        .mountain.small { border-left-width: 120px; border-right-width: 120px; border-bottom-width: 160px; }
+        .mountain.alt { border-bottom-color: var(--mountain-alt); }
 
-        .road-container { position: absolute; bottom: 50px; width: 100%; height: 4px; background: rgba(255,255,255,0.05); z-index: 5; }
+        .tree { position: relative; margin-right: 40px; }
+        .tree-top { 
+            width: 0; height: 0; 
+            border-left: 30px solid transparent; 
+            border-right: 30px solid transparent; 
+            border-bottom: 80px solid var(--tree-color); 
+            transition: border-bottom-color 1s ease; 
+        }
+        .tree.large .tree-top { border-left-width: 45px; border-right-width: 45px; border-bottom-width: 110px; }
+        .tree-trunk { width: 10px; height: 15px; background: #000; margin: 0 auto; opacity: 0.3; }
+
+        .road-container { position: absolute; bottom: 50px; width: 100%; height: 4px; background: rgba(0,0,0,0.1); z-index: 10; }
         .road-strips { position: absolute; width: 200%; height: 100%; display: flex; animation: scrollLandscape calc(0.8s / var(--global-speed-scale)) linear infinite; }
         .strip { width: 40px; height: 4px; background: var(--primary-color); box-shadow: 0 0 10px var(--primary-color); margin: 0 50px; }
 
+        /* TRUCK */
         .truck-wrapper { 
             position: absolute; 
             bottom: 54px; 
-            z-index: 10; 
+            z-index: 20; 
             left: 50%; 
             transform: translateX(-50%); 
             width: 200px;
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), left 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .truck-wrapper.drive-off { left: 150%; transform: translateX(0); }
-        .truck-wrapper.enter-left { left: -50%; transform: translateX(0); transition: none; }
-        .truck-suspension { position: relative; animation: bump 1.2s ease-in-out infinite; animation-duration: calc(1.2s / (var(--global-speed-scale) + 0.1)); }
+        .truck-suspension { position: relative; animation: bump calc(1.2s / (var(--global-speed-scale) + 0.1)) ease-in-out infinite; }
         .truck-chassis { width: 190px; height: 10px; background: #222; border-radius: 4px; position: absolute; bottom: 0; }
-        .truck-trailer { width: 135px; height: 80px; background: #fff; border-radius: 10px; position: absolute; bottom: 10px; overflow: hidden; }
-        .logo-text { position: absolute; top: 45%; left: 30px; transform: translateY(-50%); color: #121212; font-weight: 900; font-size: 18px; letter-spacing: 1px; }
+        .truck-trailer { width: 135px; height: 80px; background: #fff; border-radius: 8px; position: absolute; bottom: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1); }
+        .logo-text { position: absolute; top: 45%; left: 0; transform: translateY(-50%); color: #121212; font-weight: 900; font-size: 14px; letter-spacing: 1px; width: 100%; text-align: center; }
         .truck-cab { width: 58px; height: 60px; background: var(--primary-color); border-radius: 4px 15px 4px 4px; position: absolute; left: 142px; bottom: 10px; }
         .window { width: 32px; height: 22px; background: #222; position: absolute; top: 10px; right: 4px; border-radius: 0 8px 0 0; }
         .wheel { position: absolute; width: 34px; height: 34px; background: #1a1a1a; border-radius: 50%; border: 4px solid #2a2a2a; animation: spin calc(0.4s / var(--global-speed-scale)) linear infinite; }
+
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes bump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.5px); } }
+        @keyframes bump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 
-        /* --- PARTNERSHIP PAGE STYLES --- */
-        .partnership-wrapper {
-            padding: 120px 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100%;
+        /* ABOUT SECTION */
+        .about-section { 
+            padding: 120px 20px; 
+            background: var(--bg-color); 
+            transition: background 1s ease; 
+            position: relative; 
+            z-index: 200; 
+        }
+        .about-container { max-width: 800px; margin: 0 auto; text-align: center; }
+        .about-container h2 { font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 5px; color: var(--primary-color); }
+        .about-container p { font-size: 1.1rem; line-height: 1.8; color: var(--text-sub); margin-bottom: 40px; }
+        .footer { padding: 60px 0; opacity: 0.3; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; text-align: center; }
+
+        /* PARTNERSHIP PAGE & SLIDER */
+        .partnership-wrapper { padding: 150px 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; box-sizing: border-box; width: 100%; overflow: hidden; }
+        
+        .slider-viewport { 
+            width: 100%; 
+            max-width: 1100px; 
+            overflow: hidden; 
+            position: relative; 
+            padding: 20px 0;
         }
 
-        #partnership { opacity: 0; transition: opacity 0.8s ease; pointer-events: none; }
-        #partnership.active { opacity: 1; pointer-events: all; }
-
-        .partner-header-main {
-            font-size: 5rem;
-            color: white;
-            text-transform: uppercase;
-            font-weight: 900;
-            margin: 0;
-            letter-spacing: 10px;
-            opacity: 0.9;
+        .partnership-grid { 
+            display: flex; 
+            gap: 30px; 
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); 
+            padding: 0 40px;
         }
 
-        .partner-header-sub {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            font-weight: 900;
-            margin: -5px 0 60px 0;
-            letter-spacing: 12px;
+        .card { 
+            flex: 0 0 calc(33.333% - 20px); 
+            background: var(--card-bg); 
+            height: 380px; 
+            padding: 30px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(0, 168, 255, 0.1); 
+            text-align: center; 
+            transition: 0.4s; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            backdrop-filter: blur(10px); 
+            text-decoration: none; 
+            color: inherit;
+            box-sizing: border-box;
         }
 
-        .partnership-grid {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            width: 100%;
-            max-width: 1400px;
-            padding-bottom: 40px;
+        .card:hover { transform: translateY(-10px); border-color: var(--primary-color); background: rgba(0, 168, 255, 0.05); }
+        .card-icon { width: 100px; height: 100px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 20px; }
+        .card-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+        @media (max-width: 900px) {
+            .card { flex: 0 0 calc(50% - 15px); }
         }
-
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            width: 280px;
-            padding: 40px 25px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            backdrop-filter: blur(5px);
-            text-decoration: none;
-            cursor: pointer;
+        @media (max-width: 600px) {
+            .card { flex: 0 0 100%; }
         }
-
-        .card:hover {
-            border-color: var(--primary-color);
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .card-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin-bottom: 25px;
-            box-shadow: 0 0 20px rgba(0, 168, 255, 0.3);
-        }
-
-        .card-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .card h3 { color: white; margin: 0 0 12px 0; font-size: 1.2rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; }
-        .card p { font-size: 0.9rem; color: #888; line-height: 1.6; margin: 0; }
-
-        .btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.3s;
-            margin-top: 40px;
-            font-size: 0.9rem;
-        }
-
-        .footer { padding: 60px 0; color: rgba(255,255,255,0.2); font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; font-weight: bold; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div class="moon"></div>
+    <div class="stars-container" id="stars-container"></div>
+    <div class="celestial-toggle" id="mode-toggle"></div>
 
     <nav>
         <a onclick="navigateTo('home')" id="nav-home" class="active">Home</a>
         <a onclick="navigateTo('partnership')" id="nav-partnership">Partnership</a>
+        <a href="https://discord.gg/2GNHKbJeDM" target="_blank">Discord</a>
     </nav>
 
-    <!-- HOME PAGE -->
-    <div id="home" class="page active">
-        <div class="home-hero">
-            <div class="header" id="main-header">
-                <h1>NorthStar</h1>
-                <h2>Express</h2>
-                <div class="tmp-badge">Express Done the NorthStar Way</div>
-            </div>
-
-            <div class="scene">
-                <div class="layer clouds-container">
-                    <div class="group"><div class="cloud" style="top:100px;left:10%"></div><div class="cloud" style="top:50px;left:40%"></div></div>
-                    <div class="group"><div class="cloud" style="top:100px;left:10%"></div><div class="cloud" style="top:50px;left:40%"></div></div>
-                </div>
-                <div class="layer mountains-container">
-                    <div class="group"><div class="mountain"></div><div class="mountain" style="border-bottom-width:250px; margin-left:-50px;"></div></div>
-                    <div class="group"><div class="mountain"></div><div class="mountain" style="border-bottom-width:250px; margin-left:-50px;"></div></div>
-                </div>
-                <div class="layer trees-container">
-                    <div class="group"><div class="tree" style="margin-left:20%"><div class="tree-top"></div><div class="tree-trunk"></div></div><div class="tree" style="margin-left:40%"><div class="tree-top"></div><div class="tree-trunk"></div></div></div>
-                    <div class="group"><div class="tree" style="margin-left:20%"><div class="tree-top"></div><div class="tree-trunk"></div></div><div class="tree" style="margin-left:40%"><div class="tree-top"></div><div class="tree-trunk"></div></div></div>
-                </div>
-                <div class="road-container">
-                    <div class="road-strips">
-                        <div class="group"><div class="strip"></div><div class="strip"></div></div>
-                        <div class="group"><div class="strip"></div><div class="strip"></div></div>
-                    </div>
+    <div class="page-container">
+        <!-- HOME PAGE -->
+        <div id="home" class="page active" style="display:block; opacity:1;">
+            <div class="home-hero">
+                <div class="header">
+                    <h1>NorthStar</h1>
+                    <h2>Express</h2>
+                    <div style="margin-top:10px; opacity:0.7; letter-spacing:2px; font-size:0.9rem">EST. 2026</div>
                 </div>
 
-                <div id="truck" class="truck-wrapper">
-                    <div class="truck-suspension">
-                        <div class="truck-chassis"></div>
-                        <div class="truck-trailer"><div class="logo-text">NSE</div></div>
-                        <div class="truck-cab"><div class="window"></div></div>
+                <div class="scene">
+                    <div class="layer clouds-container">
+                        <div class="group">
+                            <div class="cloud" style="top:40px; left:5%; width:140px; height:45px;"></div>
+                            <div class="cloud" style="top:110px; left:25%; width:180px; height:60px;"></div>
+                            <div class="cloud" style="top:70px; left:45%; width:120px; height:40px;"></div>
+                            <div class="cloud" style="top:130px; left:60%; width:160px; height:50px;"></div>
+                            <div class="cloud" style="top:50px; left:80%; width:130px; height:45px;"></div>
+                        </div>
+                        <div class="group">
+                            <div class="cloud" style="top:40px; left:5%; width:140px; height:45px;"></div>
+                            <div class="cloud" style="top:110px; left:25%; width:180px; height:60px;"></div>
+                            <div class="cloud" style="top:70px; left:45%; width:120px; height:40px;"></div>
+                            <div class="cloud" style="top:130px; left:60%; width:160px; height:50px;"></div>
+                            <div class="cloud" style="top:50px; left:80%; width:130px; height:45px;"></div>
+                        </div>
                     </div>
-                    <div class="wheel" style="left:15px; bottom:-18px;"></div>
-                    <div class="wheel" style="left:55px; bottom:-18px;"></div>
-                    <div class="wheel" style="left:160px; bottom:-18px;"></div>
+
+                    <div class="layer mountains-back">
+                        <div class="group">
+                            <div class="mountain alt small" style="margin-left: 5%"></div>
+                            <div class="mountain alt small" style="margin-left: 20%"></div>
+                            <div class="mountain alt small" style="margin-left: 45%"></div>
+                            <div class="mountain alt small" style="margin-left: 70%"></div>
+                        </div>
+                        <div class="group">
+                            <div class="mountain alt small" style="margin-left: 5%"></div>
+                            <div class="mountain alt small" style="margin-left: 20%"></div>
+                            <div class="mountain alt small" style="margin-left: 45%"></div>
+                            <div class="mountain alt small" style="margin-left: 70%"></div>
+                        </div>
+                    </div>
+
+                    <div class="layer mountains-front">
+                        <div class="group">
+                            <div class="mountain" style="margin-left: -40px"></div>
+                            <div class="mountain" style="margin-left: 35%; border-bottom-width: 280px;"></div>
+                            <div class="mountain" style="margin-left: 15%; border-bottom-width: 200px;"></div>
+                        </div>
+                        <div class="group">
+                            <div class="mountain" style="margin-left: -40px"></div>
+                            <div class="mountain" style="margin-left: 35%; border-bottom-width: 280px;"></div>
+                            <div class="mountain" style="margin-left: 15%; border-bottom-width: 200px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="layer trees-container">
+                        <div class="group">
+                            <div class="tree large" style="margin-left: 5%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree" style="margin-left: 2%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree large" style="margin-left: 8%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree" style="margin-left: 4%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree large" style="margin-left: 12%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree" style="margin-left: 5%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree large" style="margin-left: 10%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                        </div>
+                        <div class="group">
+                            <div class="tree large" style="margin-left: 5%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree" style="margin-left: 2%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree large" style="margin-left: 8%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree" style="margin-left: 4%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree large" style="margin-left: 12%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree" style="margin-left: 5%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                            <div class="tree large" style="margin-left: 10%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="road-container">
+                        <div class="road-strips">
+                            <div class="group"><div class="strip"></div><div class="strip"></div></div>
+                            <div class="group"><div class="strip"></div><div class="strip"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="truck-wrapper">
+                        <div class="truck-suspension">
+                            <div class="truck-chassis"></div>
+                            <div class="truck-trailer"><div class="logo-text">NorthStar Express</div></div>
+                            <div class="truck-cab"><div class="window"></div></div>
+                        </div>
+                        <div class="wheel" style="left:15px; bottom:-18px;"></div>
+                        <div class="wheel" style="left:55px; bottom:-18px;"></div>
+                        <div class="wheel" style="left:160px; bottom:-18px;"></div>
+                    </div>
                 </div>
             </div>
+
+            <section class="about-section">
+                <div class="about-container">
+                    <h2>The Northern Standard</h2>
+                    <p>Driving through every weather, every road, and every night. NorthStar Express is a premier Virtual Trucking Company (VTC) dedicated to professionalism, community, and the love of the open road. Whether you're hauling heavy cargo across Europe or navigating the highways of America, we provide a home for truckers who value excellence.</p>
+                    <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 40px;">
+                        <div style="background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--primary-color); width: 120px;">
+                            <h3 style="margin:0; color:var(--primary-color)">24/7</h3>
+                            <small>Support</small>
+                        </div>
+                        <div style="background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--primary-color); width: 120px;">
+                            <h3 style="margin:0; color:var(--primary-color)">Global</h3>
+                            <small>Logistics</small>
+                        </div>
+                        <div style="background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--primary-color); width: 120px;">
+                            <h3 style="margin:0; color:var(--primary-color)">Elite</h3>
+                            <small>Drivers</small>
+                        </div>
+                    </div>
+                    <div class="footer">© 2026 NORTHSTAR EXPRESS • LOGISTICS REDEFINED</div>
+                </div>
+            </section>
         </div>
 
-        <!-- ABOUT SECTION -->
-        <section class="about-section" id="about">
-            <div class="about-container">
-                <h2>Who We Are</h2>
-                <p class="about-text">
-                    NorthStar Express is a premier Virtual Trucking Company (VTC) dedicated to excellence on the roads of TruckersMP. 
-                    Founded in 2026, we aim to bridge the gap between casual driving and professional simulation. 
-                    Our fleet spans across Europe and America, delivering cargo with precision and building a community of like-minded drivers.
-                </p>
+        <!-- PARTNERSHIP PAGE -->
+        <div id="partnership" class="page">
+            <div class="partnership-wrapper">
+                <h1 style="font-size: 4rem; margin:0">PARTNERS</h1>
+                <p style="color: var(--primary-color); letter-spacing: 5px; font-weight:900; margin-bottom: 50px;">CO-PILOTS IN SUCCESS</p>
                 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h4>2</h4>
-                        <p>Active Drivers</p>
-                    </div>
-                    <div class="stat-card">
-                        <h4>10</h4>
-                        <p>Jobs Completed</p>
-                    </div>
-                    <div class="stat-card">
-                        <h4>2,565</h4>
-                        <p>km / Miles Delivered</p>
-                    </div>
-                    <div class="stat-card">
-                        <h4>24/7</h4>
-                        <p>Staff Support</p>
+                <div class="slider-viewport">
+                    <div class="partnership-grid" id="partnership-grid">
+                        <a href="https://discord.gg/cjkgBQDd4b" target="_blank" class="card">
+                            <div class="card-icon">
+                                <img src="https://cdn.discordapp.com/attachments/1418675920428077106/1461418302399189033/FluxLine_logo-min.png?ex=697d991b&is=697c479b&hm=7be92dd39fabccfcd3f65176121772310b747286d469ac9ce48cdd3c0642cfe4&" alt="Flux">
+                            </div>
+                            <h3>FluxLine Cargo</h3>
+                            <p>High-speed logistics and professional dispatching services.</p>
+                        </a>
+                        <!-- Template card to show more than 3 for testing the auto-scroll -->
+                        <div class="card">
+                            <div class="card-icon" style="font-size: 2rem;">★</div>
+                            <h3>Future Partner</h3>
+                            <p>Contact us via Discord to see your VTC here and join the network.</p>
+                        </div>
                     </div>
                 </div>
 
-                <a href="https://discord.gg/2GNHKbJeDM" target="_blank" class="btn">Apply To Join</a>
+                <div class="footer" style="margin-top:auto;">© 2026 NORTHSTAR EXPRESS • LOGISTICS REDEFINED</div>
             </div>
-            <div class="footer">EST. 2024 • THE NORTHERN STAR OF LOGISTICS</div>
-        </section>
-    </div>
-
-    <!-- PARTNERSHIP PAGE -->
-    <div id="partnership" class="page">
-        <div class="partnership-wrapper">
-            <h2 class="partner-header-main">OFFICIAL</h2>
-            <h3 class="partner-header-sub">PARTNERSHIPS</h3>
-            
-            <div class="partnership-grid">
-                <!-- Card 1 -->
-                <a href="https://discord.gg/cjkgBQDd4b" target="_blank" class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn.discordapp.com/attachments/1418675920428077106/1461418302399189033/FluxLine_logo-min.png?ex=697d991b&is=697c479b&hm=7be92dd39fabccfcd3f65176121772310b747286d469ac9ce48cdd3c0642cfe4&" alt="FluxLine Cargo">
-                    </div>
-                    <h3>FluxLine Cargo</h3>
-                    <p>Fluxline Cargo Is the way to go</p>
-                </a>
-                
-                <!-- Card 2 -->
-                <a href="https://discord.gg/2GNHKbJeDM" target="_blank" class="card">
-                    <div class="card-icon">
-                        <img src="https://via.placeholder.com/150" alt="Partner Logo">
-                    </div>
-                    <h3>This could be you!</h3>
-                    <p>Interested in collaborating? Join our discord and contact management to become a partner.</p>
-                </a>
-
-                <!-- Card 3 -->
-                <a href="https://discord.gg/2GNHKbJeDM" target="_blank" class="card">
-                    <div class="card-icon">
-                        <img src="https://via.placeholder.com/150" alt="Partner Logo">
-                    </div>
-                    <h3>This could be you!</h3>
-                    <p>Interested in collaborating? Join our discord and contact management to become a partner.</p>
-                </a>
-            </div>
-            
-            <a href="https://discord.gg/2GNHKbJeDM" target="_blank" class="btn">Connect via Discord</a>
-            
-            <div class="footer">EST. 2026 • THE NORTHERN STAR OF LOGISTICS</div>
         </div>
     </div>
- <!--  <a href="https://discord.gg/cjkgBQDd4b" target="_blank" class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn.discordapp.com/attachments/1418675920428077106/1461418302399189033/FluxLine_logo-min.png?ex=697d991b&is=697c479b&hm=7be92dd39fabccfcd3f65176121772310b747286d469ac9ce48cdd3c0642cfe4&" alt="FluxLine Cargo">
-                    </div>
-                    <h3>FluxLine Cargo</h3>
-                    <p>Fluxline Cargo Is the way to go</p>
-                </a>
-    <a href="https://discord.gg/2pZN8xHGm8" target="_blank" class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn.discordapp.com/attachments/1418675920428077106/1461418301954719827/acl_log.png?ex=697d991b&is=697c479b&hm=e93ce8da76feb75082773f6f7ba855dd485d207e6f83b23de64ce6a1d617ef5a&" alt="Apex Colour Logistics">
-                    </div>
-                    <h3>Apex Colour Logistics</h3>
-                    <p>Working together to ensure every delivery reaches its destination with style and precision.</p>
-                </a>
-    
-    -->
+
     <script>
         const root = document.documentElement;
-        const truck = document.getElementById('truck');
-        const header = document.getElementById('main-header');
-        const homePage = document.getElementById('home');
-        let isTransitioning = false;
+        const body = document.body;
+        const starsContainer = document.getElementById('stars-container');
+        const modeToggle = document.getElementById('mode-toggle');
+        const partnershipGrid = document.getElementById('partnership-grid');
 
-        async function navigateTo(pageId) {
-            if (isTransitioning) return;
-            const currentActive = document.querySelector('.page.active').id;
-            
-            if (currentActive === pageId) {
-                // If already on Home but scrolled down, scroll back up
-                if (pageId === 'home') homePage.scrollTo(0, 0);
-                return;
+        // Stars setup
+        function createStars() {
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                const isTwinkler = Math.random() > 0.7;
+                star.className = 'star' + (isTwinkler ? ' twinkle' : '');
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.top = Math.random() * 70 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                if (isTwinkler) star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                starsContainer.appendChild(star);
             }
+        }
+        createStars();
 
-            isTransitioning = true;
+        modeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+        });
 
-            if (pageId === 'partnership') {
-                // If user is scrolled down in "About", scroll them up first so they see the truck
-                if (homePage.scrollTop > 100) {
-                    homePage.scrollTo({ top: 0, behavior: 'smooth' });
-                    // Wait for the scroll up animation to finish or get close
-                    await new Promise(r => setTimeout(r, 600));
+        // Partnership Auto-Scroll Logic
+        let currentSlide = 0;
+        let sliderInterval = null;
+
+        function startPartnershipSlider() {
+            const cards = partnershipGrid.querySelectorAll('.card');
+            if (cards.length <= 3) return; // Only scroll if more than 3
+
+            sliderInterval = setInterval(() => {
+                currentSlide++;
+                const cardWidth = cards[0].offsetWidth + 30; // Card + Gap
+                const maxSlides = cards.length - 3;
+                
+                if (currentSlide > maxSlides) {
+                    currentSlide = 0;
                 }
 
-                speedUp(3.0, 1000);
-                header.style.opacity = '0';
+                partnershipGrid.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+            }, 5000);
+        }
+
+        function stopPartnershipSlider() {
+            if (sliderInterval) {
+                clearInterval(sliderInterval);
+                sliderInterval = null;
+                currentSlide = 0;
+                partnershipGrid.style.transform = 'translateX(0)';
+            }
+        }
+
+        // Navigation logic
+        let isNavigating = false;
+        function navigateTo(pageId) {
+            if (isNavigating) return;
+            const currentActive = document.querySelector('.page.active');
+            if (currentActive.id === pageId) return;
+
+            isNavigating = true;
+            
+            // 1. Acceleration Effect
+            root.style.setProperty('--global-speed-scale', '6');
+            document.querySelectorAll('.layer').forEach(l => l.style.filter = 'blur(3px)');
+            
+            // 2. Start Fading out Current
+            currentActive.style.opacity = '0';
+            currentActive.style.transform = 'scale(1.05) translateY(-30px)';
+
+            // Update Nav UI
+            document.querySelectorAll('nav a').forEach(a => {
+                a.classList.toggle('active', a.id === 'nav-' + pageId);
+            });
+
+            // 3. Middle of transition: Swap the visibility
+            setTimeout(() => {
+                currentActive.classList.remove('active');
+                currentActive.style.display = 'none';
                 
+                const nextPage = document.getElementById(pageId);
+                nextPage.style.display = 'block';
+                
+                void nextPage.offsetWidth; 
+
+                nextPage.classList.add('active');
+                nextPage.style.opacity = '1';
+                nextPage.style.transform = 'scale(1) translateY(0)';
+                
+                window.scrollTo({ top: 0, behavior: 'instant' });
+
+                // Start or Stop the partnership slider based on page
+                if (pageId === 'partnership') {
+                    startPartnershipSlider();
+                } else {
+                    stopPartnershipSlider();
+                }
+
+                // 4. Decelerate back to cruising speed
                 setTimeout(() => {
-                    truck.classList.remove('enter-left');
-                    truck.classList.add('drive-off');
-                }, 300);
+                    const finalSpeed = pageId === 'partnership' ? '2.5' : '1';
+                    root.style.setProperty('--global-speed-scale', finalSpeed);
+                    document.querySelectorAll('.layer').forEach(l => l.style.filter = 'none');
+                    isNavigating = false;
+                }, 400);
 
-                setTimeout(() => {
-                    homePage.classList.remove('active');
-                    document.getElementById('partnership').classList.add('active');
-                    updateNav(pageId);
-                    isTransitioning = false;
-                }, 1400);
-            } else {
-                // Returning home
-                document.getElementById('partnership').classList.remove('active');
-                truck.classList.remove('drive-off');
-                truck.classList.add('enter-left');
-                homePage.classList.add('active');
-                homePage.scrollTo(0, 0); // Ensure we start at the top
-                header.style.opacity = '1';
-                speedUp(4.0, 0); 
-
-                setTimeout(() => {
-                    truck.style.transition = 'left 1.2s cubic-bezier(0.1, 0.9, 0.2, 1), transform 1.2s cubic-bezier(0.1, 0.9, 0.2, 1)';
-                    truck.classList.remove('enter-left');
-                    speedUp(1, 2500);
-                    setTimeout(() => {
-                        truck.style.transition = '';
-                        updateNav(pageId);
-                        isTransitioning = false;
-                    }, 1200);
-                }, 100);
-            }
-        }
-
-        function speedUp(target, duration) {
-            const startValue = parseFloat(getComputedStyle(root).getPropertyValue('--global-speed-scale'));
-            if (duration === 0) {
-                root.style.setProperty('--global-speed-scale', target);
-                return;
-            }
-            const startTime = performance.now();
-            function animate(now) {
-                const elapsed = now - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const current = startValue + (target - startValue) * progress;
-                root.style.setProperty('--global-speed-scale', current);
-                if (progress < 1) requestAnimationFrame(animate);
-            }
-            requestAnimationFrame(animate);
-        }
-
-        function updateNav(pageId) {
-            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-            document.getElementById('nav-' + pageId).classList.add('active');
+            }, 600);
         }
     </script>
 </body>
 </html>
-
-
-
