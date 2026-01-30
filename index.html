@@ -84,7 +84,7 @@
             50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.5); }
         }
 
-        /* CELESTIAL TOGGLE - Responsive position */
+        /* CELESTIAL TOGGLE */
         .celestial-toggle {
             position: fixed;
             top: 20px;
@@ -100,15 +100,10 @@
         }
 
         @media (min-width: 768px) {
-            .celestial-toggle {
-                top: 40px;
-                right: 40px;
-                width: 80px;
-                height: 80px;
-            }
+            .celestial-toggle { top: 40px; right: 40px; width: 80px; height: 80px; }
         }
 
-        /* NAVIGATION - Optimized for Touch */
+        /* NAVIGATION */
         nav {
             position: fixed;
             bottom: 20px;
@@ -116,38 +111,35 @@
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
-            gap: 15px;
+            gap: 10px;
             background: var(--nav-bg);
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 50px;
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             align-items: center;
             width: fit-content;
-            max-width: 90vw;
+            max-width: 95vw;
         }
 
         @media (min-width: 768px) {
-            nav {
-                top: 20px;
-                bottom: auto;
-                gap: 25px;
-                padding: 12px 35px;
-            }
+            nav { top: 20px; bottom: auto; gap: 20px; padding: 12px 30px; }
         }
 
         nav a {
             color: var(--text-main);
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 1.5px;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
             font-weight: 800;
             transition: 0.3s;
             cursor: pointer;
             opacity: 0.6;
             white-space: nowrap;
         }
+
+        @media (min-width: 768px) { nav a { font-size: 0.7rem; letter-spacing: 1.5px; } }
 
         nav a.active, nav a:hover { opacity: 1; color: var(--primary-color); }
 
@@ -162,138 +154,53 @@
             box-sizing: border-box;
         }
 
-        .page.active {
-            display: block;
-            opacity: 1;
-            transform: scale(1);
+        .page.active { display: block; opacity: 1; transform: scale(1); }
+
+        /* SCENE ELEMENTS (REUSED) */
+        .scene { position: absolute; bottom: 0; width: 100%; height: 400px; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; pointer-events: none; }
+        @media (min-width: 768px) { .scene { height: 600px; } }
+
+        @keyframes scrollLandscape { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        .layer { position: absolute; width: 200%; display: flex; animation: scrollLandscape linear infinite; transition: filter 0.5s ease; }
+        .group { width: 50%; display: flex; align-items: flex-end; position: relative; }
+
+        /* UTILITY CLASSES FOR TITLES */
+        .page-header { text-align: center; margin-top: 15vh; z-index: 100; padding: 0 20px; position: relative; }
+        .page-header h1, .partnership-title { 
+            font-size: 2.5rem; margin: 0; text-transform: uppercase; letter-spacing: 2px;
+            background: linear-gradient(to bottom, var(--text-main), #999);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900;
+            text-align: center;
+        }
+        .page-header h2 { font-size: 1.2rem; color: var(--primary-color); margin: 0; text-transform: uppercase; letter-spacing: 6px; font-weight: 900; }
+        @media (min-width: 768px) {
+            .page-header h1, .partnership-title { font-size: 4rem; }
+            .page-header h2 { font-size: 1.8rem; letter-spacing: 10px; }
         }
 
         /* --- HOME HERO --- */
-        .home-hero {
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header {
-            text-align: center;
-            margin-top: 15vh;
-            z-index: 100;
-            padding: 0 20px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(to bottom, var(--text-main), #999);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-        }
-
-        .header h2 {
-            font-size: 1.2rem;
-            color: var(--primary-color);
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 6px;
-            font-weight: 900;
-        }
-
-        @media (min-width: 768px) {
-            .header h1 { font-size: 4.5rem; letter-spacing: 4px; }
-            .header h2 { font-size: 1.8rem; letter-spacing: 10px; }
-        }
-
-        /* --- SCENE LAYERS --- */
-        .scene {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 400px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        @media (min-width: 768px) {
-            .scene { height: 600px; }
-        }
-
-        @keyframes scrollLandscape {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .layer { position: absolute; width: 200%; display: flex; animation: scrollLandscape linear infinite; transition: filter 0.5s ease; }
-        
+        .home-hero { height: 100vh; width: 100%; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; }
         .clouds-container { top: 0; z-index: 1; animation-duration: calc(80s / var(--global-speed-scale)); opacity: var(--cloud-opacity); }
         .mountains-back { bottom: 80px; z-index: 2; animation-duration: calc(60s / var(--global-speed-scale)); opacity: 0.4; }
         .mountains-front { bottom: 60px; z-index: 3; animation-duration: calc(40s / var(--global-speed-scale)); }
         .trees-container { bottom: 60px; z-index: 4; animation-duration: calc(14s / var(--global-speed-scale)); }
-        
-        .group { width: 50%; display: flex; align-items: flex-end; position: relative; }
-        
-        .cloud { position: absolute; background: white; border-radius: 50px; filter: blur(2px); }
-        
-        .mountain { 
-            width: 0; height: 0; 
-            border-left: 100px solid transparent; 
-            border-right: 100px solid transparent; 
-            border-bottom: 140px solid var(--mountain-color); 
-            margin-right: -60px; 
-            transition: border-bottom-color 1s ease; 
-        }
-        @media (min-width: 768px) {
-            .mountain { border-left-width: 180px; border-right-width: 180px; border-bottom-width: 240px; margin-right: -100px; }
-        }
+        .mountain { width: 0; height: 0; border-left: 100px solid transparent; border-right: 100px solid transparent; border-bottom: 140px solid var(--mountain-color); margin-right: -60px; transition: border-bottom-color 1s ease; }
+        @media (min-width: 768px) { .mountain { border-left-width: 180px; border-right-width: 180px; border-bottom-width: 240px; margin-right: -100px; } }
         .mountain.small { border-left-width: 60px; border-right-width: 60px; border-bottom-width: 80px; }
-        @media (min-width: 768px) {
-            .mountain.small { border-left-width: 120px; border-right-width: 120px; border-bottom-width: 160px; }
-        }
+        @media (min-width: 768px) { .mountain.small { border-left-width: 120px; border-right-width: 120px; border-bottom-width: 160px; } }
         .mountain.alt { border-bottom-color: var(--mountain-alt); }
-
         .tree { position: relative; margin-right: 20px; }
-        .tree-top { 
-            width: 0; height: 0; 
-            border-left: 15px solid transparent; 
-            border-right: 15px solid transparent; 
-            border-bottom: 40px solid var(--tree-color); 
-        }
-        @media (min-width: 768px) {
-            .tree { margin-right: 40px; }
-            .tree-top { border-left-width: 30px; border-right-width: 30px; border-bottom-width: 80px; }
-        }
-        .tree.large .tree-top { border-left-width: 25px; border-right-width: 25px; border-bottom-width: 60px; }
-        @media (min-width: 768px) {
-            .tree.large .tree-top { border-left-width: 45px; border-right-width: 45px; border-bottom-width: 110px; }
-        }
+        .tree-top { width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-bottom: 40px solid var(--tree-color); }
+        @media (min-width: 768px) { .tree { margin-right: 40px; } .tree-top { border-left-width: 30px; border-right-width: 30px; border-bottom-width: 80px; } }
         .tree-trunk { width: 6px; height: 10px; background: #000; margin: 0 auto; opacity: 0.2; }
-
         .road-container { position: absolute; bottom: 50px; width: 100%; height: 4px; background: rgba(0,0,0,0.1); z-index: 10; }
         .road-strips { position: absolute; width: 200%; height: 100%; display: flex; animation: scrollLandscape calc(0.8s / var(--global-speed-scale)) linear infinite; }
         .strip { width: 40px; height: 4px; background: var(--primary-color); box-shadow: 0 0 10px var(--primary-color); margin: 0 50px; }
 
-        /* TRUCK - Scaled for Mobile */
-        .truck-wrapper { 
-            position: absolute; 
-            bottom: 54px; 
-            z-index: 20; 
-            left: 50%; 
-            transform: translateX(-50%) scale(0.7); 
-            width: 200px;
-        }
-        @media (min-width: 768px) {
-            .truck-wrapper { transform: translateX(-50%) scale(1); }
-        }
+        /* TRUCK */
+        .truck-wrapper { position: absolute; bottom: 54px; z-index: 20; left: 50%; transform: translateX(-50%) scale(0.7); width: 200px; }
+        @media (min-width: 768px) { .truck-wrapper { transform: translateX(-50%) scale(1); } }
         .truck-suspension { position: relative; animation: bump calc(1.2s / (var(--global-speed-scale) + 0.1)) ease-in-out infinite; }
         .truck-chassis { width: 190px; height: 10px; background: #222; border-radius: 4px; position: absolute; bottom: 0; }
         .truck-trailer { width: 135px; height: 80px; background: #fff; border-radius: 8px; position: absolute; bottom: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1); }
@@ -301,96 +208,52 @@
         .truck-cab { width: 58px; height: 60px; background: var(--primary-color); border-radius: 4px 15px 4px 4px; position: absolute; left: 142px; bottom: 10px; }
         .window { width: 32px; height: 22px; background: #222; position: absolute; top: 10px; right: 4px; border-radius: 0 8px 0 0; }
         .wheel { position: absolute; width: 34px; height: 34px; background: #1a1a1a; border-radius: 50%; border: 4px solid #2a2a2a; animation: spin calc(0.4s / var(--global-speed-scale)) linear infinite; }
-
         @keyframes spin { 100% { transform: rotate(360deg); } }
         @keyframes bump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 
-        /* ABOUT SECTION */
-        .about-section { 
-            padding: 80px 20px 120px 20px; 
-            background: var(--bg-color); 
-            transition: background 1s ease; 
-            position: relative; 
-            z-index: 200; 
-        }
-        .about-container { max-width: 800px; margin: 0 auto; text-align: center; }
-        .about-container h2 { font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 3px; color: var(--primary-color); }
-        .about-container p { font-size: 1rem; line-height: 1.6; color: var(--text-sub); margin-bottom: 40px; }
-        
-        .stats-grid { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
-        .stat-item { background: var(--card-bg); padding: 15px; border-radius: 15px; border: 1px solid var(--primary-color); width: 100px; flex-shrink: 0; }
+        /* COMMON SECTION STYLES */
+        .content-wrapper { padding: 60px 20px 140px 20px; width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; }
+        @media (min-width: 768px) { .content-wrapper { padding: 120px 20px; } }
 
-        @media (min-width: 768px) {
-            .about-section { padding: 120px 20px; }
-            .about-container h2 { font-size: 2.5rem; letter-spacing: 5px; }
-            .about-container p { font-size: 1.1rem; line-height: 1.8; }
-            .stat-item { padding: 20px; width: 120px; }
-            .stats-grid { gap: 20px; }
-        }
+        /* --- MEET THE TEAM --- */
+        .team-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin-top: 50px; }
+        @media (min-width: 600px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .team-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        .footer { padding: 40px 0; opacity: 0.3; font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; text-align: center; width: 100%; }
+        .team-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+        .team-card:hover { transform: translateY(-5px); border-color: var(--primary-color); box-shadow: 0 10px 30px rgba(0, 168, 255, 0.1); }
+        .team-img { 
+            width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 20px;
+            background: #222; border: 3px solid var(--primary-color); object-fit: cover;
+        }
+        .team-role { color: var(--primary-color); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .team-name { font-size: 1.4rem; font-weight: 900; margin: 0 0 10px 0; }
+        .team-bio { font-size: 0.9rem; color: var(--text-sub); line-height: 1.5; }
 
         /* PARTNERSHIP PAGE & SLIDER */
-        .partnership-wrapper { padding: 60px 20px 140px 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; width: 100%; box-sizing: border-box; overflow-x: hidden; }
+        .partnership-wrapper { padding: 100px 20px; width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; display: flex; flex-direction: column; min-height: 100vh; }
+        .slider-viewport { width: 100%; overflow: hidden; position: relative; padding: 20px 0; }
+        .partnership-grid { display: flex; gap: 20px; transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); width: 100%; }
         
-        @media (min-width: 768px) {
-            .partnership-wrapper { padding: 120px 20px; }
-        }
-
-        .slider-viewport { 
-            width: 100%; 
-            max-width: 1100px; 
-            overflow: hidden; 
-            position: relative; 
-            padding: 20px 0;
-            margin: 0 auto;
-        }
-
-        .partnership-grid { 
-            display: flex; 
-            gap: 20px; 
-            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); 
-            width: 100%;
-        }
-
-        .card { 
-            flex: 0 0 100%; 
-            background: var(--card-bg); 
-            min-height: 320px; 
-            padding: 25px; 
-            border-radius: 20px; 
-            border: 1px solid rgba(0, 168, 255, 0.1); 
-            text-align: center; 
-            transition: 0.4s; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            backdrop-filter: blur(10px); 
-            text-decoration: none; 
-            color: inherit;
-            box-sizing: border-box;
-        }
-
-        @media (min-width: 600px) {
-            .card { flex: 0 0 calc(50% - 10px); }
-            .partnership-grid { gap: 20px; }
-        }
-
-        @media (min-width: 960px) {
-            .card { flex: 0 0 calc(33.333% - 20px); }
-            .partnership-grid { gap: 30px; }
-        }
-
+        .card { flex: 0 0 100%; background: var(--card-bg); min-height: 280px; padding: 25px; border-radius: 20px; border: 1px solid rgba(0, 168, 255, 0.1); text-align: center; transition: 0.4s; display: flex; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(10px); text-decoration: none; color: inherit; box-sizing: border-box; }
+        @media (min-width: 600px) { .card { flex: 0 0 calc(50% - 10px); } }
+        @media (min-width: 960px) { .card { flex: 0 0 calc(33.333% - 20px); } }
+        
         .card:hover { transform: translateY(-10px); border-color: var(--primary-color); background: rgba(0, 168, 255, 0.05); }
         .card-icon { width: 80px; height: 80px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 20px; }
         .card-icon img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .partnership-title { font-size: 2.5rem; margin: 0; text-align: center; }
-        @media (min-width: 768px) {
-            .partnership-title { font-size: 4rem; }
-        }
+        .card h3 { font-size: 1.4rem; font-weight: 800; margin: 0 0 10px 0; }
+        .card p { font-size: 0.9rem; color: var(--text-sub); line-height: 1.5; margin: 0; max-width: 250px; }
 
+        .footer { padding: 40px 0; opacity: 0.3; font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; text-align: center; width: 100%; }
     </style>
 </head>
 <body>
@@ -400,7 +263,8 @@
 
     <nav>
         <a onclick="navigateTo('home')" id="nav-home" class="active">Home</a>
-        <a onclick="navigateTo('partnership')" id="nav-partnership">Partnership</a>
+        <a onclick="navigateTo('team')" id="nav-team">Team</a>
+        <a onclick="navigateTo('partnership')" id="nav-partnership">Partners</a>
         <a href="https://discord.gg/2GNHKbJeDM" target="_blank">Discord</a>
     </nav>
 
@@ -408,7 +272,7 @@
         <!-- HOME PAGE -->
         <div id="home" class="page active">
             <div class="home-hero">
-                <div class="header">
+                <div class="page-header">
                     <h1>NorthStar</h1>
                     <h2>Express</h2>
                     <div style="margin-top:10px; opacity:0.7; letter-spacing:2px; font-size:0.75rem">EST. 2026</div>
@@ -416,64 +280,13 @@
 
                 <div class="scene">
                     <div class="layer clouds-container">
-                        <div class="group">
-                            <div class="cloud" style="top:40px; left:5%; width:100px; height:30px;"></div>
-                            <div class="cloud" style="top:110px; left:25%; width:120px; height:40px;"></div>
-                            <div class="cloud" style="top:70px; left:45%; width:80px; height:30px;"></div>
-                            <div class="cloud" style="top:50px; left:80%; width:90px; height:35px;"></div>
-                        </div>
-                        <div class="group">
-                            <div class="cloud" style="top:40px; left:5%; width:100px; height:30px;"></div>
-                            <div class="cloud" style="top:110px; left:25%; width:120px; height:40px;"></div>
-                            <div class="cloud" style="top:70px; left:45%; width:80px; height:30px;"></div>
-                            <div class="cloud" style="top:50px; left:80%; width:90px; height:35px;"></div>
-                        </div>
+                        <div class="group"><div class="cloud" style="top:40px; left:5%; width:100px; height:30px; background:white; border-radius:50px; position:absolute; opacity:0.5;"></div></div>
+                        <div class="group"><div class="cloud" style="top:70px; left:45%; width:80px; height:30px; background:white; border-radius:50px; position:absolute; opacity:0.5;"></div></div>
                     </div>
-
-                    <div class="layer mountains-back">
-                        <div class="group">
-                            <div class="mountain alt small" style="margin-left: 5%"></div>
-                            <div class="mountain alt small" style="margin-left: 20%"></div>
-                            <div class="mountain alt small" style="margin-left: 50%"></div>
-                        </div>
-                        <div class="group">
-                            <div class="mountain alt small" style="margin-left: 5%"></div>
-                            <div class="mountain alt small" style="margin-left: 20%"></div>
-                            <div class="mountain alt small" style="margin-left: 50%"></div>
-                        </div>
-                    </div>
-
-                    <div class="layer mountains-front">
-                        <div class="group">
-                            <div class="mountain" style="margin-left: -20px"></div>
-                            <div class="mountain" style="margin-left: 35%;"></div>
-                        </div>
-                        <div class="group">
-                            <div class="mountain" style="margin-left: -20px"></div>
-                            <div class="mountain" style="margin-left: 35%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="layer trees-container">
-                        <div class="group">
-                            <div class="tree large" style="margin-left: 5%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree" style="margin-left: 10%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree large" style="margin-left: 15%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                        </div>
-                        <div class="group">
-                            <div class="tree large" style="margin-left: 5%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree" style="margin-left: 10%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                            <div class="tree large" style="margin-left: 15%"><div class="tree-top"></div><div class="tree-trunk"></div></div>
-                        </div>
-                    </div>
-
-                    <div class="road-container">
-                        <div class="road-strips">
-                            <div class="group"><div class="strip"></div><div class="strip"></div></div>
-                            <div class="group"><div class="strip"></div><div class="strip"></div></div>
-                        </div>
-                    </div>
-
+                    <div class="layer mountains-back"><div class="group"><div class="mountain alt small" style="margin-left: 5%"></div></div><div class="group"><div class="mountain alt small" style="margin-left: 20%"></div></div></div>
+                    <div class="layer mountains-front"><div class="group"><div class="mountain" style="margin-left: -20px"></div></div><div class="group"><div class="mountain" style="margin-left: 35%;"></div></div></div>
+                    <div class="layer trees-container"><div class="group"><div class="tree large" style="margin-left: 5%"><div class="tree-top"></div><div class="tree-trunk"></div></div></div><div class="group"><div class="tree" style="margin-left: 10%"><div class="tree-top"></div><div class="tree-trunk"></div></div></div></div>
+                    <div class="road-container"><div class="road-strips"><div class="group"><div class="strip"></div></div><div class="group"><div class="strip"></div></div></div></div>
                     <div class="truck-wrapper">
                         <div class="truck-suspension">
                             <div class="truck-chassis"></div>
@@ -487,27 +300,73 @@
                 </div>
             </div>
 
-            <section class="about-section">
-                <div class="about-container">
-                    <h2>The Northern Standard</h2>
-                    <p>Driving through every weather, every road, and every night. NorthStar Express is a premier Virtual Trucking Company (VTC) dedicated to professionalism, community, and the love of the open road.</p>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <h3 style="margin:0; color:var(--primary-color)">24/7</h3>
-                            <small>Support</small>
+            <!-- ABOUT SECTION -->
+            <section style="background: var(--bg-color); position:relative; z-index:200; border-top: 1px solid rgba(255,255,255,0.05);">
+                <div class="content-wrapper" style="text-align:center;">
+                    <h2 style="color:var(--primary-color); letter-spacing:5px; text-transform: uppercase; font-weight: 900;">ABOUT US</h2>
+                    <p style="color:var(--text-sub); line-height:1.8; max-width:800px; margin: 20px auto 40px; font-size: 1.05rem;">
+                        NorthStar Express was founded with a single mission: to provide the most reliable and community-driven virtual trucking experience in the world. 
+                        We believe that a VTC is more than just logging miles; it's about the friendships forged on the open road and the collective pursuit of professional excellence.
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px;">
+                        <div style="flex: 1; min-width: 200px; max-width: 300px;">
+                            <h3 style="color: var(--text-main); margin-bottom: 10px;">Our Vision</h3>
+                            <p style="color: var(--text-sub); font-size: 0.9rem;">To lead the industry by setting new standards for professionalism and inclusivity.</p>
                         </div>
-                        <div class="stat-item">
-                            <h3 style="margin:0; color:var(--primary-color)">10</h3>
-                            <small>jobs completed</small>
-                        </div>
-                        <div class="stat-item">
-                            <h3 style="margin:0; color:var(--primary-color)">2</h3>
-                            <small>Drivers</small>
+                        <div style="flex: 1; min-width: 200px; max-width: 300px;">
+                            <h3 style="color: var(--text-main); margin-bottom: 10px;">Our Values</h3>
+                            <p style="color: var(--text-sub); font-size: 0.9rem;">Integrity, commitment, and respect for every driver under our banner.</p>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <section style="background: var(--bg-color); position:relative; z-index:200;">
+                <div class="content-wrapper" style="text-align:center; padding-top: 0;">
+                    <h2 style="color:var(--primary-color); letter-spacing:5px;">THE NORTHERN STANDARD</h2>
+                    <p style="color:var(--text-sub); line-height:1.8; max-width:800px; margin: 20px auto 40px;">Driving through every weather, every road, and every night. NorthStar Express is a premier Virtual Trucking Company (VTC) dedicated to community and professionalism.</p>
                     <div class="footer">© 2026 NORTHSTAR EXPRESS • LOGISTICS REDEFINED</div>
                 </div>
             </section>
+        </div>
+
+        <!-- TEAM PAGE -->
+        <div id="team" class="page">
+            <div class="content-wrapper">
+                <div class="page-header" style="margin-top:0;">
+                    <h1>MEET THE</h1>
+                    <h2>ELITE SQUAD</h2>
+                </div>
+
+                <div class="team-grid">
+                    <div class="team-card">
+                        <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1466898114496696535/My_pfp.png?ex=697e6ad4&is=697d1954&hm=758053fc2bbad8d324cc6b002fcecea37726b2ff1adf891dc87f55afca305f23&" alt="Founder" class="team-img">
+                        <div class="team-role">Founder</div>
+                        <h3 class="team-name">Sprogg28</h3>
+                        <p class="team-bio">Founder of NorthStar Express. Backbone of the behind the scene to make everything work.</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1466898114030997608/Mod.png?ex=697e6ad4&is=697d1954&hm=74f29c1085e56d529b5b4b62c1b94028445dfb355f2e0de083c96e79295ad1f1&" alt="Admin" class="team-img">
+                        <div class="team-role">Moderation</div>
+                        <h3 class="team-name">ThatGuy</h3>
+                        <p class="team-bio">Handling the day-to-day ticket support. And Alot behind the scenes.</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://ui-avatars.com/api/?name=Staff+Name&background=00a8ff&color=fff&size=200" alt="Staff" class="team-img">
+                        <div class="team-role">Media</div>
+                        <h3 class="team-name">N/A</h3>
+                        <p class="team-bio">Position currently open for applications.</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://ui-avatars.com/api/?name=Staff+Name&background=00a8ff&color=fff&size=200" alt="Staff" class="team-img">
+                        <div class="team-role">Convoy Control</div>
+                        <h3 class="team-name">N/A</h3>
+                        <p class="team-bio">Position currently open for applications.</p>
+                    </div>
+                </div>
+
+                <div class="footer" style="margin-top:60px;">JOIN OUR TEAM VIA DISCORD</div>
+            </div>
         </div>
 
         <!-- PARTNERSHIP PAGE -->
@@ -576,35 +435,26 @@
         function startPartnershipSlider() {
             stopPartnershipSlider();
             const cards = partnershipGrid.querySelectorAll('.card');
-            
             sliderInterval = setInterval(() => {
                 const visibleCount = window.innerWidth >= 960 ? 3 : (window.innerWidth >= 600 ? 2 : 1);
                 if (cards.length <= visibleCount) return;
-
                 currentSlide++;
                 const cardWidth = cards[0].offsetWidth;
-                const gap = parseInt(window.getComputedStyle(partnershipGrid).gap);
+                const gap = 20;
                 const step = cardWidth + gap;
                 const maxSlides = cards.length - visibleCount;
-                
-                if (currentSlide > maxSlides) {
-                    currentSlide = 0;
-                }
-
+                if (currentSlide > maxSlides) currentSlide = 0;
                 partnershipGrid.style.transform = `translateX(-${currentSlide * step}px)`;
             }, 5000);
         }
 
         function stopPartnershipSlider() {
-            if (sliderInterval) {
-                clearInterval(sliderInterval);
-                sliderInterval = null;
-            }
+            if (sliderInterval) clearInterval(sliderInterval);
             currentSlide = 0;
             partnershipGrid.style.transform = 'translateX(0)';
         }
 
-        // Navigation logic
+        // Navigation
         let isNavigating = false;
         function navigateTo(pageId) {
             if (isNavigating) return;
@@ -612,8 +462,6 @@
             if (currentActive && currentActive.id === pageId) return;
 
             isNavigating = true;
-            
-            // Speed up world during transition
             root.style.setProperty('--global-speed-scale', '5');
             document.querySelectorAll('.layer').forEach(l => l.style.filter = 'blur(2px)');
             
@@ -635,33 +483,22 @@
                 const nextPage = document.getElementById(pageId);
                 nextPage.style.display = 'block';
                 void nextPage.offsetWidth; 
-
                 nextPage.classList.add('active');
                 nextPage.style.opacity = '1';
                 nextPage.style.transform = 'scale(1)';
                 
                 window.scrollTo({ top: 0, behavior: 'instant' });
 
-                if (pageId === 'partnership') {
-                    startPartnershipSlider();
-                } else {
-                    stopPartnershipSlider();
-                }
+                if (pageId === 'partnership') startPartnershipSlider();
+                else stopPartnershipSlider();
 
                 setTimeout(() => {
-                    root.style.setProperty('--global-speed-scale', pageId === 'partnership' ? '2' : '1');
+                    root.style.setProperty('--global-speed-scale', '1');
                     document.querySelectorAll('.layer').forEach(l => l.style.filter = 'none');
                     isNavigating = false;
                 }, 400);
-
             }, 400);
         }
-
-        // Handle initial page load state
-        window.onload = () => {
-            document.getElementById('home').style.display = 'block';
-            document.getElementById('home').style.opacity = '1';
-        };
     </script>
 </body>
 </html>
