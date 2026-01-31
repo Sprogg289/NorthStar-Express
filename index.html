@@ -253,7 +253,63 @@
         .card h3 { font-size: 1.4rem; font-weight: 800; margin: 0 0 10px 0; }
         .card p { font-size: 0.9rem; color: var(--text-sub); line-height: 1.5; margin: 0; max-width: 250px; }
 
+        /* --- MEDIA PAGE STYLES --- */
+        .media-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .media-item {
+            background: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #333;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .media-item:hover { border-color: var(--primary-color); transform: translateY(-5px); }
+
+        .media-img-container {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            overflow: hidden;
+        }
+        
+        .media-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .media-item:hover .media-img { transform: scale(1.1); }
+
+        .media-info { padding: 15px; }
+        .media-title { font-weight: 800; font-size: 1.1rem; color: white; margin-bottom: 5px; text-transform: uppercase; }
+        .media-desc { color: #888; font-size: 0.85rem; line-height: 1.4; }
+
         .footer { padding: 40px 0; opacity: 0.3; font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; text-align: center; width: 100%; }
+        
+        /* ABOUT SECTION */
+        .about-section {
+            padding: 100px 20px;
+            background: rgba(15, 15, 19, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 200;
+        }
+        .about-container { max-width: 900px; text-align: center; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 50px; }
+        .stat-card { background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 15px; border: 1px solid rgba(0, 168, 255, 0.2); }
+        .stat-card h4 { font-size: 2.5rem; color: var(--primary-color); margin: 0; }
+        .stat-card p { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin: 10px 0 0; opacity: 0.7; }
+        .about-btn { display: inline-block; padding: 15px 40px; background: var(--primary-color); color: white; text-decoration: none; border-radius: 50px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; margin-top: 40px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -264,6 +320,7 @@
     <nav>
         <a onclick="navigateTo('home')" id="nav-home" class="active">Home</a>
         <a onclick="navigateTo('team')" id="nav-team">Team</a>
+        <a onclick="navigateTo('media')" id="nav-media">Media</a>
         <a onclick="navigateTo('partnership')" id="nav-partnership">Partners</a>
         <a href="https://discord.gg/2GNHKbJeDM" target="_blank">Discord</a>
     </nav>
@@ -301,32 +358,32 @@
             </div>
 
             <!-- ABOUT SECTION -->
-            <section style="background: var(--bg-color); position:relative; z-index:200; border-top: 1px solid rgba(255,255,255,0.05);">
-                <div class="content-wrapper" style="text-align:center;">
-                    <h2 style="color:var(--primary-color); letter-spacing:5px; text-transform: uppercase; font-weight: 900;">ABOUT US</h2>
+            <section style="background: var(--bg-color); position:relative; z-index:200; border-top: 1px solid rgba(255,255,255,0.05);" class="about-section">
+                <div class="about-container">
+                    <h2 style="color:var(--primary-color); letter-spacing:5px; text-transform: uppercase; font-weight: 900;">Who We Are</h2>
                     <p style="color:var(--text-sub); line-height:1.8; max-width:800px; margin: 20px auto 40px; font-size: 1.05rem;">
                         NorthStar Express was founded with a single mission: to provide the most reliable and community-driven virtual trucking experience in the world. 
                         We believe that a VTC is more than just logging miles; it's about the friendships forged on the open road and the collective pursuit of professional excellence.
                     </p>
-                    <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px;">
-                        <div style="flex: 1; min-width: 200px; max-width: 300px;">
-                            <h3 style="color: var(--text-main); margin-bottom: 10px;">Our Vision</h3>
-                            <p style="color: var(--text-sub); font-size: 0.9rem;">To lead the industry by setting new standards for professionalism and inclusivity.</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>2</h4>
+                            <p>Active Drivers</p>
                         </div>
-                        <div style="flex: 1; min-width: 200px; max-width: 300px;">
-                            <h3 style="color: var(--text-main); margin-bottom: 10px;">Our Values</h3>
-                            <p style="color: var(--text-sub); font-size: 0.9rem;">Integrity, commitment, and respect for every driver under our banner.</p>
+                        <div class="stat-card">
+                            <h4>2,573</h4>
+                            <p>Miles Delivered</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>9</h4>
+                            <p>Jobs Completed</p>
                         </div>
                     </div>
-                </div>
-            </section>
 
-            <section style="background: var(--bg-color); position:relative; z-index:200;">
-                <div class="content-wrapper" style="text-align:center; padding-top: 0;">
-                    <h2 style="color:var(--primary-color); letter-spacing:5px;">THE NORTHERN STANDARD</h2>
-                    <p style="color:var(--text-sub); line-height:1.8; max-width:800px; margin: 20px auto 40px;">Driving through every weather, every road, and every night. NorthStar Express is a premier Virtual Trucking Company (VTC) dedicated to community and professionalism.</p>
-                    <div class="footer">© 2026 NORTHSTAR EXPRESS • LOGISTICS REDEFINED</div>
+                    <a href="https://discord.gg/2GNHKbJeDM" target="_blank" class="about-btn">Apply To Join</a>
                 </div>
+                <div class="footer">EST. 2024 • THE NORTHERN STAR OF LOGISTICS</div>
             </section>
         </div>
 
@@ -346,26 +403,48 @@
                         <p class="team-bio">Founder of NorthStar Express. Backbone of the behind the scene to make everything work.</p>
                     </div>
                     <div class="team-card">
-                        <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1466898114030997608/Mod.png?ex=697e6ad4&is=697d1954&hm=74f29c1085e56d529b5b4b62c1b94028445dfb355f2e0de083c96e79295ad1f1&" alt="Admin" class="team-img">
+                        <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1466898114030997608/Mod.png?ex=697f1394&is=697dc214&hm=800e8b8a68ec399c4f43249bc767ea1d064c2a11cd8c2989f07826d4760eec20&" alt="Moderator" class="team-img">
                         <div class="team-role">Moderation</div>
                         <h3 class="team-name">ThatGuy</h3>
-                        <p class="team-bio">Handling the day-to-day ticket support. And Alot behind the scenes.</p>
+                        <p class="team-bio">Moderation of NorthStar Express. Backbone of the tickets and supporting new drivers.</p>
                     </div>
-                    <div class="team-card">
-                        <img src="https://ui-avatars.com/api/?name=Staff+Name&background=00a8ff&color=fff&size=200" alt="Staff" class="team-img">
-                        <div class="team-role">Media</div>
-                        <h3 class="team-name">N/A</h3>
-                        <p class="team-bio">Position currently open for applications.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEDIA PAGE -->
+        <div id="media" class="page">
+            <div class="content-wrapper">
+                <div class="page-header" style="margin-top: 0; margin-bottom: 40px;">
+                    <h1>FLEET</h1>
+                    <h2>GALLERY</h2>
+                </div>
+
+                <div class="media-gallery" id="media-grid">
+                    <!-- Example Media Item 1 -->
+                    <div class="media-item">
+                        <div class="media-img-container">
+                            <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1467155735564521625/ets2_20260130_190626_00.png?ex=697f5ac1&is=697e0941&hm=0796bb44ea46f44d1051fd525a9d0f4f04747d68cbbe29a50661d8dc0937200f&" class="media-img" alt="Night Haul">
+                        </div>
+                        <div class="media-info">
+                            <div class="media-title">Fluxline Cargo Event</div>
+                            <div class="media-desc">Lovely event to attend to! Thank Fluxline Cargo for letting us join</div>
+                        </div>
                     </div>
-                    <div class="team-card">
-                        <img src="https://ui-avatars.com/api/?name=Staff+Name&background=00a8ff&color=fff&size=200" alt="Staff" class="team-img">
-                        <div class="team-role">Convoy Control</div>
-                        <h3 class="team-name">N/A</h3>
-                        <p class="team-bio">Position currently open for applications.</p>
+
+                    <!-- Example Media Item 2 -->
+                    <div class="media-item">
+                        <div class="media-img-container">
+                            <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1467155736080416818/ets2_20260130_190356_00.png?ex=697f5ac1&is=697e0941&hm=1c2ca16633a88550fb4ad528320de449e371f7bdc844a765459ba4afdb6d83d0&" class="media-img" alt="Fleet Lineup">
+                        </div>
+                        <div class="media-info">
+                            <div class="media-title">Fluxline Cargo Event</div>
+                            <div class="media-desc">Thank Fluxline Cargo for letting us join.</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="footer" style="margin-top:60px;">JOIN OUR TEAM VIA DISCORD</div>
+                <div class="footer" style="margin-top:60px;">© 2026 NORTHSTAR EXPRESS</div>
             </div>
         </div>
 
@@ -377,29 +456,26 @@
                 
                 <div class="slider-viewport">
                     <div class="partnership-grid" id="partnership-grid">
-                        <!--Patner 1-->
-                        
+                        <!-- Partner 1 -->
                         <a href="https://discord.gg/cjkgBQDd4b" target="_blank" class="card">
                             <div class="card-icon">
-                                <img src="https://cdn.discordapp.com/attachments/1418675920428077106/1461418302399189033/FluxLine_logo-min.png?ex=697d991b&is=697c479b&hm=7be92dd39fabccfcd3f65176121772310b747286d469ac9ce48cdd3c0642cfe4&" alt="Flux">
+                                <img src="https://cdn.discordapp.com/attachments/1418675920428077106/1466907165330505999/FluxLine_logo-min.png?ex=697f1c02&is=697dca82&hm=6657fe83e5c71d0a453b585376ad159f42901830797e12770045690f374c6fa2&" alt="Flux">
                             </div>
                             <h3>FluxLine Cargo</h3>
                             <p>High-speed logistics and professional dispatching services.</p>
                         </a>
-                        <!--Patner 2-->
-                        
+                        <!-- Partner 2 -->
                         <a href="https://discord.gg/Ew3Kc2ybJu" target="_blank" class="card">
                             <div class="card-icon">
-                                <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1466903326590500914/image.png?ex=697e6fae&is=697d1e2e&hm=a22e39e6a9f4238484a7a66d31033b9847c0cfa4224b58ca324b885d66adbd93&" alt="Flux">
+                                <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1466903326590500914/image.png?ex=697e6fae&is=697d1e2e&hm=a22e39e6a9f4238484a7a66d31033b9847c0cfa4224b58ca324b885d66adbd93&" alt="Fae Logistics">
                             </div>
                             <h3>Fae Logistics</h3>
-                            <p>Fae Logistics is a Professionally run Virtual Trucking Company Founded on 27th Oct 2025, The Owner (JaideTheFae) made it her Goal to Create not just a Place to Log Miles But a Safe Haven for All Fae (Faeries) to Make long lasting Friendships and Connections while out on those Long Deliveries, Our Goal is to build a Welcoming Inclusive Community that Thrives in the Prescence of their co-drivers and Staff members
-</p>
+                            <p>Fae Logistics is a Professionally run Virtual Trucking Company Founded on 27th Oct 2025, The Owner (JaideTheFae) made it her Goal to Create not just a Place to Log Miles But a Safe Haven for All Fae (Faeries) to Make long lasting Friendships and Connections while out on those Long Deliveries, Our Goal is to build a Welcoming Inclusive Community that Thrives in the Prescence of their co-drivers and Staff members</p>
                         </a>
-                        <!--Patner 3-->
+                        <!-- Partner 3 -->
                         <a href="https://discord.gg/greenlight-cc" target="_blank" class="card">
                             <div class="card-icon">
-                                <img src="https://cdn.discordapp.com/attachments/1466913524897808404/1466925074492948622/ChatGPT_Image_Jan_2_2026_06_07_03_PM-removebg-preview_upscayl_4x_upscayl-standard-4x.png?ex=697e83ef&is=697d326f&hm=bf91f5135fc26c8126fe1604f89a0dbf2412a724d8160b93ac45e30b1607cc24&" alt="Flux">
+                                <img src="https://cdn.discordapp.com/attachments/1466913524897808404/1466925074492948622/ChatGPT_Image_Jan_2_2026_06_07_03_PM-removebg-preview_upscayl_4x_upscayl-standard-4x.png?ex=697e83ef&is=697d326f&hm=bf91f5135fc26c8126fe1604f89a0dbf2412a724d8160b93ac45e30b1607cc24&" alt="Green Light CC">
                             </div>
                             <h3>Green Light CC</h3>
                             <p>Green Light CC is an independent group of passionate ETS2 & ATS players from all around the Truckers MP community! Our CC members are the life and blood of everything we do and without them, GL CC would not be where it is today! We believe that by putting 100% effort and dedication into every single event, we set ourselves apart from other CC groups.</p>
@@ -424,6 +500,7 @@
         const starsContainer = document.getElementById('stars-container');
         const modeToggle = document.getElementById('mode-toggle');
         const partnershipGrid = document.getElementById('partnership-grid');
+        const homePage = document.getElementById('home');
 
         // Stars setup
         function createStars() {
@@ -449,7 +526,7 @@
             body.classList.toggle('light-mode');
         });
 
-        // Partnership Auto-Scroll Logic
+        // --- PARTNERSHIP SLIDER ---
         let currentSlide = 0;
         let sliderInterval = null;
 
@@ -475,14 +552,24 @@
             partnershipGrid.style.transform = 'translateX(0)';
         }
 
-        // Navigation
+        // --- NAVIGATION ---
         let isNavigating = false;
-        function navigateTo(pageId) {
+        async function navigateTo(pageId) {
             if (isNavigating) return;
             const currentActive = document.querySelector('.page.active');
-            if (currentActive && currentActive.id === pageId) return;
+            
+            if (currentActive && currentActive.id === pageId) {
+                if (pageId === 'home') homePage.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
 
             isNavigating = true;
+
+            if (currentActive.id === 'home' && homePage.scrollTop > 100) {
+                 homePage.scrollTo({ top: 0, behavior: 'smooth' });
+                 await new Promise(r => setTimeout(r, 600));
+            }
+
             root.style.setProperty('--global-speed-scale', '5');
             document.querySelectorAll('.layer').forEach(l => l.style.filter = 'blur(2px)');
             
