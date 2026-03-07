@@ -156,7 +156,7 @@
 
         .page.active { display: block; opacity: 1; transform: scale(1); }
 
-        /* SCENE ELEMENTS (REUSED) */
+        /* SCENE ELEMENTS */
         .scene { position: absolute; bottom: 0; width: 100%; height: 400px; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; pointer-events: none; }
         @media (min-width: 768px) { .scene { height: 600px; } }
 
@@ -372,18 +372,18 @@
                             <p>Active Drivers</p>
                         </div>
                         <div class="stat-card">
-                            <h4>24471</h4>
+                            <h4>46141</h4>
                             <p>Miles Delivered</p>
                         </div>
                         <div class="stat-card">
-                            <h4>55</h4>
+                            <h4>91</h4>
                             <p>Jobs Completed</p>
                         </div>
                     </div>
 
                     <a href="https://discord.gg/2GNHKbJeDM" target="_blank" class="about-btn">Apply To Join</a>
                 </div>
-                <div class="footer">EST. 2026 • THE NORTHERN STAR OF LOGISTICS</div>
+                <div class="footer">EST. 2026 • THE NORTHERN STAR OF EXPRESS</div>
             </section>
         </div>
 
@@ -397,19 +397,19 @@
 
                 <div class="team-grid">
                     <div class="team-card">
-                        <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1466898114496696535/My_pfp.png?ex=69942b94&is=6992da14&hm=94a851b41dbda460a9e1bf52888dfad66548fa7b661c68f5183f91a14a007d14&" alt="Founder" class="team-img">
+                        <img src="https://ui-avatars.com/api/?name=Sprogg28&background=222&color=00a8ff&bold=true&size=128" alt="Founder" class="team-img" onerror="handleImageError(this, 'Sprogg28')">
                         <div class="team-role">Founder</div>
                         <h3 class="team-name">Sprogg28</h3>
                         <p class="team-bio">Founder of NorthStar Express. Backbone of the behind the scene to make everything work.</p>
                     </div>
                     <div class="team-card">
-                        <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1466898114030997608/Mod.png?ex=69942b94&is=6992da14&hm=9c6724aad45d862e525e41c9e43d5b637a9532bd05385b6f861f3a5695fdb959&" alt="Moderator" class="team-img">
+                        <img src="https://ui-avatars.com/api/?name=ThatGuy&background=222&color=00a8ff&bold=true&size=128" alt="Moderator" class="team-img" onerror="handleImageError(this, 'ThatGuy')">
                         <div class="team-role">Moderation</div>
                         <h3 class="team-name">ThatGuy</h3>
                         <p class="team-bio">Moderation of NorthStar Express. Backbone of the tickets and supporting new drivers.</p>
                     </div>
                     <div class="team-card">
-                        <img src="https://cdn.discordapp.com/attachments/1466913524897808404/1466925074492948622/ChatGPT_Image_Jan_2_2026_06_07_03_PM-removebg-preview_upscayl_4x_upscayl-standard-4x.png?ex=699444af&is=6992f32f&hm=d7c9e853cd7a914d03a96a6de465422c4be9a95e2bd31b67f574551f7815b8f0&" alt="Moderator" class="team-img">
+                        <img src="https://ui-avatars.com/api/?name=anthony&background=222&color=00a8ff&bold=true&size=128" alt="Moderator" class="team-img" onerror="handleImageError(this, 'Anthony')">
                         <div class="team-role">Convoy Control Team</div>
                         <h3 class="team-name">anthony</h3>
                         <p class="team-bio">Controls all NorthStar Express convoys and events. Backbone of planning and driver coordination.</p>
@@ -427,20 +427,24 @@
                 </div>
 
                 <div class="media-gallery" id="media-grid">
-                    /<!-- Example Media Item 1 
                     <div class="media-item">
                         <div class="media-img-container">
-                            <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1467155735564521625/ets2_20260130_190626_00.png?ex=697f5ac1&is=697e0941&hm=0796bb44ea46f44d1051fd525a9d0f4f04747d68cbbe29a50661d8dc0937200f&" class="media-img" alt="Night Haul">
+                            <img src="https://images.unsplash.com/photo-1586191582151-f7377197d191?auto=format&fit=crop&q=80&w=800" class="media-img" alt="Fleet 1">
                         </div>
                         <div class="media-info">
-                            <div class="media-title">Fluxline Cargo Event</div>
-                            <div class="media-desc">Lovely event to attend to! Thank Fluxline Cargo for letting us join</div>
+                            <div class="media-title">Midnight Run</div>
+                            <div class="media-desc">Captured during our latest cross-border logistics operation.</div>
                         </div>
-                    </div> -->
-
-
-
-                
+                    </div>
+                    <div class="media-item">
+                        <div class="media-img-container">
+                            <img src="https://images.unsplash.com/photo-1591768793355-74d7c2d1297e?auto=format&fit=crop&q=80&w=800" class="media-img" alt="Fleet 2">
+                        </div>
+                        <div class="media-info">
+                            <div class="media-title">Mountain Pass</div>
+                            <div class="media-desc">Taking heavy cargo through the scenic mountain routes.</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="footer" style="margin-top:60px;">© 2026 NORTHSTAR EXPRESS</div>
@@ -458,83 +462,62 @@
                         <!-- Partner 1 -->
                         <a href="https://discord.gg/cjkgBQDd4b" target="_blank" class="card">
                             <div class="card-icon">
-                                <img src="https://images-ext-1.discordapp.net/external/Ohjn4km8YkM1wCyy0hfVj2tWQHX6eQ4wdcrxD_BRi8k/https/static.truckersmp.com/images/vtc/logo/82807.1765045960.png?format=webp&quality=lossless" alt="Flux">
+                                <img src="https://i.imghippo.com/files/RVkc8779iDg.png" alt="Flux" onerror="handleImageError(this, 'Flux')">
                             </div>
                             <h3>FluxLine Cargo</h3>
-                            <p>FluxLine Cargo is a virtual trucking company dedicated to delivering reliable, efficient, and immersive freight operations. Built on professionalism and precision, we focus on smooth logistics, consistent performance, and a strong sense of community among our drivers. From short regional runs to long-haul routes, FluxLine Cargo keeps freight moving with purpose across every virtual mile.</p>
+                            <p>FluxLine Cargo is a virtual trucking company dedicated to delivering reliable, efficient, and immersive freight operations. Built on professionalism and precision.</p>
                         </a>
                         <!-- Partner 2 -->
-                        <a href="https://discord.gg/Ew3Kc2ybJu" target="_blank" class="card">
+                        <a href="https://discord.gg/fTCPpBUzar" target="_blank" class="card">
                             <div class="card-icon">
-                                <img src="https://images-ext-1.discordapp.net/external/G7ZWgqAdtgyW2T9hKRH8IPrwcDJxpdhZ11355jBkQ-M/https/cdn-longterm.mee6.xyz/plugins/embeds/images/1379858785400524800/79a8b4c2cd2f3944cf8754e337b9b0e243e6ec07fb5918f7fa03bd090d77aa22.png?format=webp&quality=lossless" alt="Fae Logistics">
+                                <img src="https://i.imghippo.com/files/HoIY9931yqs.png" alt="Elite 24 hour group" onerror="handleImageError(this, 'Fae')">
                             </div>
-                            <h3>Fae Logistics</h3>
-                            <p>Fae Logistics is a Professionally run Virtual Trucking Company Founded on 27th Oct 2025, The Owner (JaideTheFae) made it her Goal to Create not just a Place to Log Miles But a Safe Haven for All Fae (Faeries) to Make long lasting Friendships and Connections while out on those Long Deliveries, Our Goal is to build a Welcoming Inclusive Community that Thrives in the Prescence of their co-drivers and Staff members</p>
+                            <h3>ELITE 24 HOUR GROUP</h3>
+                            <p>Elite 24 Hour Group is a UK based server, that delivers at any time of the day/night. We offer alot of things within TMP. Join now to find out!</p>
                         </a>
                         <!-- Partner 3 -->
-                        <a href="https://discord.gg/greenlight-cc" target="_blank" class="card">
+                        <a href="https://i.imghippo.com/files/C8032Yw.png" target="_blank" class="card">
                             <div class="card-icon">
-                                <img src="https://cdn.discordapp.com/attachments/1466913524897808404/1466925074492948622/ChatGPT_Image_Jan_2_2026_06_07_03_PM-removebg-preview_upscayl_4x_upscayl-standard-4x.png?ex=699444af&is=6992f32f&hm=d7c9e853cd7a914d03a96a6de465422c4be9a95e2bd31b67f574551f7815b8f0&" alt="Green Light CC">
+                                <img src="https://i.imghippo.com/files/C8032Yw.png" alt="Green Light CC" onerror="handleImageError(this, 'GLCC')">
                             </div>
-                            <h3>Green Light CC</h3>
-                            <p>Green Light CC is an independent group of passionate ETS2 & ATS players from all around the Truckers MP community! Our CC members are the life and blood of everything we do and without them, GL CC would not be where it is today! We believe that by putting 100% effort and dedication into every single event, we set ourselves apart from other CC groups.</p>
+                            <h3>Galaxy convoy control</h3>
+                            <p>Independent group of passionate ETS2 & ATS players. CC members are the life and blood of everything we do!</p>
                         </a>
                         <!-- Partner 4 -->
                         <a href="https://discord.gg/2pZN8xHGm8" target="_blank" class="card">
                             <div class="card-icon">
-                                <img src="https://media.discordapp.net/attachments/1451522622604185620/1460007416405168330/vtc_logo.png?ex=6994269d&is=6992d51d&hm=5f6b73ef64e1f08657f974997bf906866850436d39d3691b8aff5036cc2bb578&=&format=webp&quality=lossless&width=960&height=960" alt="Green Light CC">
+                                <img src="https://media.discordapp.net/attachments/1451522622604185620/1460007416405168330/vtc_logo.png?ex=69ad331d&is=69abe19d&hm=8297242260a99418463dac26a42ad9f2c18c9b187ef66aadc9401c4a71b31321&=&format=webp&quality=lossless&width=960&height=960" alt="Apex Color" onerror="handleImageError(this, 'Apex')">
                             </div>
                             <h3>Apex Color Logistics</h3>
-                            <p>Welcome to Apex Color Logistics trucking Company, where performance meets passion on every mile. Founded within the TruckersMP community, our Virtual Trucking Company (VTC) is driven by a commitment to excellence. We bring the same dedication, quality and reliability into the virtual roads of Euro Truck Simulator 2.</p>
+                            <p>Where performance meets passion on every mile. Driven by a commitment to excellence and reliability.</p>
                         </a>
 
                         <!-- Partner 5 -->
                         <a href="https://discord.com/invite/3NckVyMFJb" target="_blank" class="card">
                             <div class="card-icon">
-                                <img src="https://images-ext-1.discordapp.net/external/-HQJ1LetIkbYijgYj4GcW-pLffSQEes-K8xlxM7mUt8/%3Fformat%3Dwebp%26quality%3Dlossless/https/images-ext-1.discordapp.net/external/k10THfKQrlyHLT_GxgWNv5ACw5NGC_A-5dCEYY6r-cI/https/cdn-longterm.mee6.xyz/plugins/embeds/images/1431811248474820743/ae3b0004c3572ea9b802c9ba6a9432150b1c15cd3ae219c6de986a9ef95ea1fd.png?format=webp&quality=lossless"Green Light CC">
+                                <img src="https://ui-avatars.com/api/?name=AJ&background=222&color=00a8ff&bold=true&size=128" alt="AJ Logistics" onerror="handleImageError(this, 'AJ')">
                             </div>
-                            <h3> AJ Logistics</h3>
-                            <p>this is from jay  AJ Logistics was founded on 24 of October 2021, by Jay, with the idea of having a laid back VTC where everyone could enjoy being in a VTC with minimal requirements.
-
-Must Own Official Version Of ETS2.
-
-17+ Years Old.
-
-Minimum 10 Hours In ETS2.
-
-Attend 1 convoy per month
-
-Please make sure you truckers MP Account Is Active
-
-Company Skin: The AJ Logistics skin is required to be used at all times while representing our company
-
-If any bans occurred in the previous 3 months, Please let us know in your application 
-</p>
+                            <h3>AJ Logistics</h3>
+                            <p>Founded on 24 of October 2021. A laid back VTC where everyone can enjoy trucking with minimal requirements.</p>
                         </a>
                         
                         <!-- Partner 6 -->
                         <a href="https://discord.gg/c3crX2JcRt" target="_blank" class="card">
                             <div class="card-icon">
-                                <img src="https://cdn.discordapp.com/attachments/1360244938566009005/1473020603085881405/spitfire.png?ex=6994b0d7&is=69935f57&hm=ecbfe3cf8dd7813d771ec5b755f7cff5454e5b7df27e66d16c0113eaa668c4c7&" alt="Green Light CC">
+                                <img src="https://i.imghippo.com/files/jof7383.png" alt="SpitFire" onerror="handleImageError(this, 'SF')">
                             </div>
                             <h3>SpitFire Logistics</h3>
-                            <p>At Spitfire, our mission is to create a community of like-minded trucking enthusiasts who value realism, camaraderie, and excellence. We aim to provide a platform where members can enhance their driving skills, participate in organized convoys, and enjoy the virtual trucking world together.
-
-We are currently recruiting for new and experienced drivers. We run a fun & friendly environment for all.
-
-Fueled by Fire, Driven to Deliver</p>
+                            <p>Our mission is to create a community of like-minded trucking enthusiasts who value realism and camaraderie.</p>
                         </a>
 
                         <!-- Partner 7 -->
                         <a href="https://discord.gg/dgpRBQj2b4" target="_blank" class="card">
                             <div class="card-icon">
-                                <img src="https://media.discordapp.net/attachments/1472977449078886450/1472978405090660473/AmethystTruckingNoBackground.png?ex=6994898a&is=6993380a&hm=2618df6e90af450ff9f33fd743f8a34e9b416f8fba4c20eb323f95d7c6771825&=&format=webp&quality=lossless" alt="Green Light CC">
+                                <img src="https://i.imghippo.com/files/YDQ2922MlE.png" alt="Amethyst" onerror="handleImageError(this, 'AT')">
                             </div>
                             <h3>Amethyst Trucking</h3>
-                            <p>Amethyst Trucking is a professional and friendly Virtual Trucking Company built for drivers who value consistency, respect, and a smooth ride across Europe and beyond. Inspired by the strength and reliability of amethyst, we aim to deliver every job with precision, style, and teamwork.</p>
+                            <p>Professional and friendly Virtual Trucking Company built for drivers who value consistency and respect.</p>
                         </a>
-
-
 
                         <div class="card">
                             <div class="card-icon" style="font-size: 1.5rem; color: white;">★</div>
@@ -558,6 +541,18 @@ Fueled by Fire, Driven to Deliver</p>
         const partnershipGrid = document.getElementById('partnership-grid');
         const homePage = document.getElementById('home');
 
+        /** * FIX: Robust image error handling
+         * If an image fails to load (common with Discord links), 
+         * replace it with a high-quality stylized avatar matching the site theme.
+         */
+        function handleImageError(image, label) {
+            image.onerror = null; 
+            const themeBg = body.classList.contains('light-mode') ? 'f0f9ff' : '222';
+            const themeTxt = '00a8ff';
+            image.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(label)}&background=${themeBg}&color=${themeTxt}&bold=true&size=128`;
+            return true;
+        }
+
         // Stars setup
         function createStars() {
             const count = window.innerWidth < 768 ? 60 : 150;
@@ -580,6 +575,13 @@ Fueled by Fire, Driven to Deliver</p>
 
         modeToggle.addEventListener('click', () => {
             body.classList.toggle('light-mode');
+            // Refresh avatars to match theme if they are error fallbacks
+            document.querySelectorAll('.team-img, .card-icon img').forEach(img => {
+                if (img.src.includes('ui-avatars.com')) {
+                    const label = img.alt || 'NSE';
+                    handleImageError(img, label);
+                }
+            });
         });
 
         // --- PARTNERSHIP SLIDER ---
